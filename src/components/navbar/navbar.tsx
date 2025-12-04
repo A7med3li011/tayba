@@ -21,6 +21,7 @@ const linkKeys = [
   { ref: "/contact-us", titleKey: "contact" },
 ] as const;
 
+const xx = 10;
 const governanceMenuItemKeys = [
   { key: "commercialRegistry", isActive: false },
   { key: "permanentAndTemporaryCommittees", isActive: false },
@@ -47,7 +48,8 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
-  const [isGovernanceDropdownOpen, setIsGovernanceDropdownOpen] = useState(false);
+  const [isGovernanceDropdownOpen, setIsGovernanceDropdownOpen] =
+    useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const governanceDropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -84,22 +86,28 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsUserDropdownOpen(false);
       }
-      if (governanceDropdownRef.current && !governanceDropdownRef.current.contains(event.target as Node)) {
+      if (
+        governanceDropdownRef.current &&
+        !governanceDropdownRef.current.contains(event.target as Node)
+      ) {
         setIsGovernanceDropdownOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   const navbarStyles = {
-    transparent: "bg-white lg:bg-[#406f9399] text-white border-b border-gray-100/40",
+    transparent: "bg-white lg:bg-[#404D67]/50 text-white ",
     solid: "bg-white text-gray-900 shadow-sm border-b border-gray-100",
   };
 
@@ -110,21 +118,27 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
 
   const buttonStyles = {
     transparent: {
-      login: "text-white border-2 border-white font-bold bg-transparent hover:bg-secondary hover:border-secondary hover:text-white",
-      register: "text-white border-2 border-secondary font-bold bg-secondary hover:bg-transparent hover:border-white hover:text-white",
+      login:
+        "text-white border-2 border-white font-bold bg-transparent hover:bg-secondary hover:border-secondary hover:text-white",
+      register:
+        "text-white border-2 border-secondary font-bold bg-secondary hover:bg-transparent hover:border-white hover:text-white",
     },
     solid: {
-      login: "text-primary border-2 border-primary font-bold bg-transparent hover:bg-secondary hover:border-secondary hover:text-white",
-      register: "text-white border-2 border-secondary font-bold bg-secondary hover:bg-secondary/90 hover:text-white",
+      login:
+        "text-primary border-2 border-primary font-bold bg-transparent hover:bg-secondary hover:border-secondary hover:text-white",
+      register:
+        "text-white border-2 border-secondary font-bold bg-secondary hover:bg-secondary/90 hover:text-white",
     },
   };
 
   return (
     <nav className={cn("w-full p-3 px-8", navbarStyles[variant], className)}>
-      <div className={cn(
-        "flex lg:grid lg:grid-cols-[20%_60%_20%] justify-between items-center",
-        variant === "transparent" ? "text-white" : "text-gray-900"
-      )}>
+      <div
+        className={cn(
+          "flex lg:grid lg:grid-cols-[20%_60%_20%] justify-between items-center",
+          variant === "transparent" ? "text-white" : "text-gray-900"
+        )}
+      >
         {/* Logo  */}
         <Link href="/" className=" flex items-center gap-4 relative z-50">
           <Image
@@ -132,7 +146,7 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
             alt="logo"
             width={200}
             height={100}
-            className="w-[120px] sm:w-[150px] md:w-[180px] lg:w-[200px] h-auto"
+            className="w-[70px] lg:w-[120px] h-auto"
           />
         </Link>
 
@@ -143,7 +157,9 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
               {ele.ref === "/governance" ? (
                 <div ref={governanceDropdownRef}>
                   <button
-                    onClick={() => setIsGovernanceDropdownOpen(!isGovernanceDropdownOpen)}
+                    onClick={() =>
+                      setIsGovernanceDropdownOpen(!isGovernanceDropdownOpen)
+                    }
                     className={cn(
                       "inline-flex items-center gap-1 pb-1 transition-colors cursor-pointer text-sm xl:text-base",
                       linkTextStyles[variant],
@@ -153,9 +169,14 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
                     )}
                   >
                     <span>{t(ele.titleKey)}</span>
-                    <ChevronDown className={cn("w-4 h-4 transition-transform duration-200", isGovernanceDropdownOpen && "rotate-180")} />
+                    <ChevronDown
+                      className={cn(
+                        "w-4 h-4 transition-transform duration-200",
+                        isGovernanceDropdownOpen && "rotate-180"
+                      )}
+                    />
                   </button>
-                  
+
                   <AnimatePresence>
                     {isGovernanceDropdownOpen && (
                       <motion.div
@@ -170,10 +191,15 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
                             {item.isActive && item.href ? (
                               <Link
                                 href={item.href}
-                                onClick={() => setIsGovernanceDropdownOpen(false)}
+                                onClick={() =>
+                                  setIsGovernanceDropdownOpen(false)
+                                }
                                 className="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-secondary/10 hover:text-primary focus:bg-secondary/10 focus:text-primary transition-colors outline-none focus:outline-none"
                               >
-                                <span className="me-2 h-2 w-2 rounded-full bg-secondary/70 group-hover:bg-secondary" aria-hidden="true" />
+                                <span
+                                  className="me-2 h-2 w-2 rounded-full bg-secondary/70 group-hover:bg-secondary"
+                                  aria-hidden="true"
+                                />
                                 <span className="flex-1">{tGov(item.key)}</span>
                               </Link>
                             ) : (
@@ -193,7 +219,9 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
                   className={cn(
                     "inline-block transition-colors pb-1 text-sm xl:text-base",
                     linkTextStyles[variant],
-                    pathname === ele.ref || (ele.ref === "/" && (pathname === "/ar" || pathname === "/en"))
+                    pathname === ele.ref ||
+                      (ele.ref === "/" &&
+                        (pathname === "/ar" || pathname === "/en"))
                       ? "text-secondary border-b-4 border-secondary rounded-b-[3px]"
                       : "border-b-4 border-transparent"
                   )}
@@ -204,14 +232,16 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
             </li>
           ))}
           <li>
-            <button 
+            <button
               onClick={switchLocale}
               className={cn(
                 "flex items-center gap-2 mb-1 cursor-pointer hover:text-secondary transition-colors",
                 variant === "solid" && "text-primary"
               )}
             >
-              <span className="text-xs xl:text-sm">{locale === "ar" ? "EN" : "عربي"}</span>
+              <span className="text-xs xl:text-sm">
+                {locale === "ar" ? "EN" : "عربي"}
+              </span>
               <Globe className="w-4 h-4 xl:w-5 xl:h-5" />
             </button>
           </li>
@@ -221,18 +251,25 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
         <div className="hidden md:flex justify-end items-center gap-2 lg:gap-4 me-4">
           {/* Notification Bell - Always visible */}
           {isAuthenticated && <NotificationBell />}
-          
+
           {isLoading ? (
             <div className="flex items-center gap-2">
               {/* Avatar skeleton */}
-              <div className={cn("w-8 h-8 rounded-full animate-pulse", variant === "transparent" ? "bg-white/20" : "bg-gray-200")} />
+              <div
+                className={cn(
+                  "w-8 h-8 rounded-full animate-pulse",
+                  variant === "transparent" ? "bg-white/20" : "bg-gray-200"
+                )}
+              />
               {/* Name shimmer */}
-              <div className={cn(
-                "h-3 w-20 rounded-full animate-[shimmer_1.5s_infinite]",
-                variant === "transparent" 
-                  ? "bg-gradient-to-r from-white/10 via-white/30 to-white/10" 
-                  : "bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100"
-              )} />
+              <div
+                className={cn(
+                  "h-3 w-20 rounded-full animate-[shimmer_1.5s_infinite]",
+                  variant === "transparent"
+                    ? "bg-gradient-to-r from-white/10 via-white/30 to-white/10"
+                    : "bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100"
+                )}
+              />
             </div>
           ) : !isAuthenticated ? (
             <>
@@ -269,7 +306,7 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
                 <PiUserCircleFill className="w-6 h-6 lg:w-8 lg:h-8" />
                 <span className="text-sm xl:text-base">{user?.name || ""}</span>
               </button>
-              {/* Dropdown Menu */} 
+              {/* Dropdown Menu */}
               {isUserDropdownOpen && (
                 <div className="absolute top-full end-0 w-64 mt-3 bg-white rounded-xl shadow-2xl border border-gray-100/50 py-3 pb-0 z-50 backdrop-blur-sm">
                   {/* User Info Section */}
@@ -277,8 +314,12 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
                     <div className="flex items-center gap-3">
                       <FaUserCircle className="w-8 h-8 text-primary" />
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-gray-900 truncate">{user?.name || ""}</p>
-                        <p className="text-xs text-gray-500 truncate">{user?.email || ""}</p>
+                        <p className="text-sm font-semibold text-gray-900 truncate">
+                          {user?.name || ""}
+                        </p>
+                        <p className="text-xs text-gray-500 truncate">
+                          {user?.email || ""}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -306,7 +347,6 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
                       <span className="font-medium">{t("logout")}</span>
                     </button>
                   </div>
-
                 </div>
               )}
             </div>
@@ -338,10 +378,14 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
       {/* Mobile Menu */}
       <div
         className={`fixed top-0 h-full w-80 bg-white transform transition-transform duration-300 ease-in-out z-40 md:hidden ${
-          locale === "ar" 
-            ? `right-0 ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`
-            : `left-0 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`
-          }`}
+          locale === "ar"
+            ? `right-0 ${
+                isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+              }`
+            : `left-0 ${
+                isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+              }`
+        }`}
       >
         <div className="flex flex-col h-full pt-20 px-6">
           {/* Mobile Navigation Links */}
@@ -387,7 +431,9 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
             </li>
             <li className="relative">
               <button
-                onClick={() => setIsGovernanceDropdownOpen(!isGovernanceDropdownOpen)}
+                onClick={() =>
+                  setIsGovernanceDropdownOpen(!isGovernanceDropdownOpen)
+                }
                 className={`flex items-center gap-1 transition-colors ${
                   pathname.endsWith("/governance")
                     ? "text-secondary border-b-2 border-secondary pb-1"
@@ -395,9 +441,13 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
                 }`}
               >
                 <span>{t("governance")}</span>
-                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isGovernanceDropdownOpen ? 'rotate-180 text-primary' : ''}`} />
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform duration-200 ${
+                    isGovernanceDropdownOpen ? "rotate-180 text-primary" : ""
+                  }`}
+                />
               </button>
-              
+
               <AnimatePresence>
                 {isGovernanceDropdownOpen && (
                   <motion.div
@@ -420,7 +470,10 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
                               className="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-secondary/10 hover:text-primary focus:bg-secondary/10 focus:text-primary transition-colors"
                             >
                               <span className="flex-1">{tGov(item.key)}</span>
-                              <span className="ms-2 h-2 w-2 rounded-full bg-secondary/70" aria-hidden="true" />
+                              <span
+                                className="ms-2 h-2 w-2 rounded-full bg-secondary/70"
+                                aria-hidden="true"
+                              />
                             </Link>
                           ) : (
                             <div className="block px-4 py-2.5 text-sm text-gray-400 cursor-not-allowed">
@@ -448,14 +501,16 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
               </Link>
             </li>
             <li>
-              <button 
+              <button
                 onClick={() => {
                   switchLocale();
                   toggleMobileMenu();
                 }}
                 className="flex items-center gap-2 text-black cursor-pointer hover:text-secondary transition-colors"
               >
-                <span className="text-sm">{locale === "ar" ? "EN" : "عربي"}</span>
+                <span className="text-sm">
+                  {locale === "ar" ? "EN" : "عربي"}
+                </span>
                 <Globe className="w-5 h-5" />
               </button>
             </li>
@@ -474,8 +529,12 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
               <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
                 <PiUserCircleFill className="w-10 h-10 text-primary" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-gray-900 truncate">{user?.name || ""}</p>
-                  <p className="text-xs text-gray-500 truncate">{user?.email || ""}</p>
+                  <p className="text-sm font-semibold text-gray-900 truncate">
+                    {user?.name || ""}
+                  </p>
+                  <p className="text-xs text-gray-500 truncate">
+                    {user?.email || ""}
+                  </p>
                 </div>
                 <div className="md:hidden">
                   <NotificationBell />

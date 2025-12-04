@@ -4,6 +4,7 @@ import "@/app/globals.css";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { UserProvider } from '@/contexts/UserContext';
+import { NotificationProvider } from '@/contexts/NotificationContext';
 import { ToastProvider } from '@/components/providers/toast-provider';
 
 
@@ -48,8 +49,10 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider messages={messages}>
           <UserProvider>
-            <ToastProvider />
-            {children}
+            <NotificationProvider>
+              <ToastProvider />
+              {children}
+            </NotificationProvider>
           </UserProvider>
         </NextIntlClientProvider>
       </body>

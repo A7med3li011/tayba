@@ -7,6 +7,7 @@ import { Search, SlidersHorizontal, MoreVertical, Bell } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import mainLogo from "@/assets/images/logo.png";
 import { Link } from "@/i18n/navigation";
+import { useNotificationContext } from "@/contexts/NotificationContext";
 
 interface Notification {
   id: string;
@@ -17,59 +18,24 @@ interface Notification {
   isRead: boolean;
 }
 
-interface NotificationBellProps {
-  initialNotifications?: Notification[];
-}
-
-export function NotificationBell({ initialNotifications }: NotificationBellProps) {
+export function NotificationBell() {
   const t = useTranslations("userProfile.notificationsPage");
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const defaultNotifications: Notification[] = [
-    {
-      id: "1",
-      message: t("loanApproved"),
-      time: `8 ${t("minAgo")}`,
-      type: "approved",
-      isStarred: true,
-      isRead: false,
-    },
-    {
-      id: "2",
-      message: t("paymentReminder"),
-      time: `8 ${t("minAgo")}`,
-      type: "reminder",
-      isStarred: false,
-      isRead: true,
-    },
-    {
-      id: "3",
-      message: t("paymentReminder"),
-      time: `8 ${t("minAgo")}`,
-      type: "reminder",
-      isStarred: false,
-      isRead: true,
-    },
-    {
-      id: "4",
-      message: t("paymentReminder"),
-      time: `8 ${t("minAgo")}`,
-      type: "reminder",
-      isStarred: false,
-      isRead: true,
-    },
-  ];
+  // Use global notification context (subscribed at top level)
+  const { notifications, unreadCount: globalUnreadCount } = useNotificationContext();
 
-  const [notifications, setNotifications] = useState<Notification[]>(
-    initialNotifications ?? defaultNotifications
-  );
+  console.log("Global notifications:", notifications);
 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -80,19 +46,11 @@ export function NotificationBell({ initialNotifications }: NotificationBellProps
     };
   }, []);
 
-  const toggleStar = (id: string) => {
-    setNotifications((prev) =>
-      prev.map((notif) =>
-        notif.id === id ? { ...notif, isStarred: !notif.isStarred } : notif
-      )
-    );
-  };
-
   const filteredNotifications = notifications.filter((notif) =>
-    notif.message.toLowerCase().includes(searchQuery.toLowerCase())
+    notif.message?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const unreadCount = notifications.filter((n) => !n.isRead).length;
+  const unreadCount = globalUnreadCount;
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -165,7 +123,6 @@ export function NotificationBell({ initialNotifications }: NotificationBellProps
                     <NotificationListItem
                       key={notification.id}
                       notification={notification}
-                      onToggleStar={toggleStar}
                       isLast={index === filteredNotifications.length - 1}
                     />
                   ))}
@@ -191,14 +148,12 @@ export function NotificationBell({ initialNotifications }: NotificationBellProps
 }
 
 interface NotificationListItemProps {
-  notification: Notification;
-  onToggleStar: (id: string) => void;
+  notification: any;
   isLast: boolean;
 }
 
 function NotificationListItem({
   notification,
-  onToggleStar,
   isLast,
 }: NotificationListItemProps) {
   const isStarred = notification.isStarred;
@@ -215,10 +170,7 @@ function NotificationListItem({
         {/* Star Icon for Starred / Three Dots for Regular */}
         <div className="flex-shrink-0">
           {isStarred ? (
-            <button
-              onClick={() => onToggleStar(notification.id)}
-              className="p-1 hover:bg-white/50 rounded-full transition-colors"
-            >
+            <button className="p-1 hover:bg-white/50 rounded-full transition-colors">
               <StarOutlineIcon className="w-5 h-5 text-[#d9a645]" />
             </button>
           ) : (
@@ -253,9 +205,7 @@ function NotificationListItem({
             />
           </div>
           {/* Vertical Indicator - Only for non-starred items */}
-          {!isStarred && (
-            <div className="w-1 h-11 rounded-full bg-[#d9a645]" />
-          )}
+          {!isStarred && <div className="w-1 h-11 rounded-full bg-[#d9a645]" />}
         </div>
       </div>
     </div>
