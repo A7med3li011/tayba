@@ -14,13 +14,13 @@ export default function Page() {
   const t = useTranslations("contactUs");
   const locale = useLocale();
   const isRTL = locale === "ar";
-
+  // from-[#4750707e] to-[#6b74959d]
   return (
     <>
       <header
         className="w-full relative h-auto lg:h-[45vh] pb-10 lg:pb-0 bg-cover bg-center mb-16"
         style={{
-          backgroundImage: `linear-gradient(rgba(77, 128, 168, 0.8), rgba(29, 78, 116, 0.8)) , url(${background.src})`,
+          backgroundImage: `linear-gradient(#4750707e, #6b74959d) , url(${background.src})`,
           backgroundPosition: "100% 40%",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
@@ -42,14 +42,18 @@ export default function Page() {
           alt="header-white-top"
           width={450}
           height={100}
-          className={`absolute top-0 hidden lg:block w-[35vw] max-w-[400px] h-auto ${isRTL ? "start-0" : "start-0 -scale-x-100"}`}
+          className={`absolute top-0 hidden lg:block w-[35vw] max-w-[400px] h-auto ${
+            isRTL ? "start-0" : "start-0 -scale-x-100"
+          }`}
         />
 
         <div className="absolute -bottom-15 right-10 hidden lg:block"></div>
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6 sm:my-8 lg:my-10">
-        <p className="text-primary font-semibold text-lg sm:text-xl">{t("title")}</p>
+        <p className="text-primary font-semibold text-lg sm:text-xl">
+          {t("title")}
+        </p>
         <h3 className="text-primary font-semibold text-3xl sm:text-4xl md:text-5xl lg:text-6xl py-2 sm:py-3 my-2 sm:my-3">
           {t("stayIn")} <span className="text-secondary">{t("touch")}</span>
         </h3>
@@ -71,7 +75,10 @@ export default function Page() {
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.1776!2d46.6753!3d24.7136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2ee2b7c0b0b0b0%3A0x0!2sRiyadh%2C%20Saudi%20Arabia!5e0!3m2!1sen!2ssa!4v1625097657031!5m2!1sen!2ssa&style=feature:all|element:labels|visibility:off&style=feature:road|element:geometry|color:0x808080&style=feature:water|element:geometry|color:0x87ceeb&style=feature:landscape|element:geometry|color:0xf5f5f5"
             width="100%"
             height="100%"
-            style={{ border: 0, filter: 'grayscale(100%) contrast(0.8) brightness(1.1)' }}
+            style={{
+              border: 0,
+              filter: "grayscale(100%) contrast(0.8) brightness(1.1)",
+            }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

@@ -84,7 +84,7 @@ export function handleApiError(error: { success: boolean; message?: string; stat
       
       setTimeout(() => {
         const currentLocale = window.location.pathname.split("/")[1] || "ar";
-        window.location.href = `/${currentLocale}/auth/login`;
+        // window.location.href = `/${currentLocale}/auth/login`;
       }, 2000);
       
       return;
