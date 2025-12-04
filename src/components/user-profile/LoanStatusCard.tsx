@@ -1,7 +1,6 @@
-
-import SaudiRiyalIcon from '@/assets/images/SaudiRiyalSymbol.svg';
-import React from 'react';
-import { AiOutlineDollar } from 'react-icons/ai';
+import SaudiRiyalIcon from "@/assets/images/SaudiRiyalSymbol.svg";
+import React from "react";
+import { AiOutlineDollar } from "react-icons/ai";
 
 interface ActiveLoan {
   id?: number;
@@ -91,21 +90,28 @@ function LoanStatusCard({ activeLoan }: LoanStatusCardProps) {
 
   // Normal State - With Loan Data
   return (
-    <div className="bg-primary rounded-xl p-6 text-white shadow-lg mb-6 border-white border-8">
+    <div className="bg-gradient-to-b from-[#4750707e] to-[#6b74959d] rounded-xl p-6 text-white shadow-lg mb-6 border-white border-8">
       <div className="flex flex-row-reverse items-center justify-between">
         {/* Progress Circle and Remaining Installments - Right side in RTL */}
         <div className="flex flex-col items-center">
           <div
-            className="radial-progress bg-primary text-xl font-bold text-secondary border-gray-100 border-4"
-            style={{ "--value": activeLoan?.paid_installments_percentage || 0 } as React.CSSProperties}
+            className="radial-progress bg-gradient-to-b from-[#4750707e] to-[#6b74959d] text-xl font-bold text-secondary border-gray-100 border-4"
+            style={
+              {
+                "--value": activeLoan?.paid_installments_percentage || 0,
+              } as React.CSSProperties
+            }
             aria-valuenow={activeLoan?.paid_installments_percentage || 0}
-            role="progressbar">
+            role="progressbar"
+          >
             {activeLoan?.paid_installments_percentage || 0}%
           </div>
           {/* Remaining Installments below circle */}
           <div className="text-center flex items-center gap-2 mt-4">
             <div className="font-bold">الأقساط المتبقية</div>
-            <div className="text-2xl font-bold">{activeLoan?.remaining_installments || 0}</div>
+            <div className="text-2xl font-bold">
+              {activeLoan?.remaining_installments || 0}
+            </div>
           </div>
         </div>
 
@@ -121,7 +127,9 @@ function LoanStatusCard({ activeLoan }: LoanStatusCardProps) {
 
           {/* Amount Display */}
           <div className="flex items-center justify-start gap-2 mb-6 px-4">
-            <span className="text-4xl font-bold">{activeLoan?.loan_amount?.toLocaleString() || 0}</span>
+            <span className="text-4xl font-bold">
+              {activeLoan?.loan_amount?.toLocaleString() || 0}
+            </span>
             <SaudiRiyalIcon className="fill-secondary inline-block w-8 h-8" />
           </div>
 
@@ -129,7 +137,7 @@ function LoanStatusCard({ activeLoan }: LoanStatusCardProps) {
           <div className="flex items-center justify-between text-sm opacity-90">
             <div className="text-start flex gap-2">
               <span className="font-bold text-lg">تاريخ الانتهاء</span>
-              <span className="text-lg">{activeLoan?.end_date || '-'}</span>
+              <span className="text-lg">{activeLoan?.end_date || "-"}</span>
             </div>
           </div>
         </div>
