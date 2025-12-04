@@ -62,7 +62,7 @@ function LoanStatusCard({ activeLoan }: LoanStatusCardProps) {
   // Empty State - No Loans
   if (!hasLoans) {
     return (
-      <div className="bg-gradient-to-br from-[#406F93] to-[#2d4f68] rounded-xl p-8 shadow-lg mb-6 border-white border-4 relative overflow-hidden">
+      <div className="bg-[#686E94] rounded-xl p-8 shadow-lg mb-6 border-white border-4 relative overflow-hidden">
         {/* Decorative background pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full -mr-16 -mt-16"></div>
@@ -90,7 +90,7 @@ function LoanStatusCard({ activeLoan }: LoanStatusCardProps) {
 
   // Normal State - With Loan Data
   return (
-    <div className="bg-gradient-to-b from-[#4750707e] to-[#6b74959d] rounded-xl p-6 text-white shadow-lg mb-6 border-white border-8">
+    <div className="bg-[#686E94] rounded-xl p-6 text-white shadow-lg mb-6 border-white border-8">
       <div className="flex flex-row-reverse items-center justify-between">
         {/* Progress Circle and Remaining Installments - Right side in RTL */}
         <div className="flex flex-col items-center">
