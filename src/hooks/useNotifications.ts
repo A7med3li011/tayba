@@ -5,6 +5,7 @@ import {
   onSnapshot,
   query,
   DocumentData,
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
@@ -15,9 +16,9 @@ export interface Notification {
   type?: "approved" | "reminder" | "info" | "warning" | "success";
   isRead?: boolean;
   isStarred?: boolean;
-  createdAt?: any; // Firestore Timestamp
+  createdAt?: Timestamp | null;
   time?: string;
-  [key: string]: any; // Allow additional properties
+  [key: string]: unknown;
 }
 
 function useNotifications(
