@@ -21,6 +21,7 @@ const linkKeys = [
   { ref: "/contact-us", titleKey: "contact" },
 ] as const;
 
+const xx = 0;
 const governanceMenuItemKeys = [
   { key: "commercialRegistry", isActive: false },
   { key: "permanentAndTemporaryCommittees", isActive: false },
@@ -106,16 +107,10 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
   }, []);
 
   const navbarStyles = {
-    transparent:
-      "bg-white lg:bg-[#404D67]/50 text-white ",
+    transparent: "bg-white lg:bg-[#404D67]/50 text-white ",
     solid: "bg-white text-gray-900 shadow-sm border-b border-gray-100",
   };
 
-
-
-
-
-  
   const linkTextStyles = {
     transparent: "text-white hover:text-secondary",
     solid: "text-primary hover:text-secondary",
