@@ -110,6 +110,7 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
       "bg-white lg:bg-[#404D67]/50 text-white ",
     solid: "bg-white text-gray-900 shadow-sm border-b border-gray-100",
   };
+  
 
   const linkTextStyles = {
     transparent: "text-white hover:text-secondary",
