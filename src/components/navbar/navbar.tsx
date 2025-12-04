@@ -21,7 +21,6 @@ const linkKeys = [
   { ref: "/contact-us", titleKey: "contact" },
 ] as const;
 
-const xx = 10;
 const governanceMenuItemKeys = [
   { key: "commercialRegistry", isActive: false },
   { key: "permanentAndTemporaryCommittees", isActive: false },
