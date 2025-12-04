@@ -111,7 +111,7 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
   };
 
   const linkTextStyles = {
-    transparent: "text-white hover:text-secondary",
+    transparent: "text-slate-200 hover:text-white",
     solid: "text-primary hover:text-secondary",
   };
 
@@ -120,7 +120,7 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
       login:
         "text-white border-2 border-white font-bold bg-transparent hover:bg-secondary hover:border-secondary hover:text-white",
       register:
-        "text-white border-2 border-secondary font-bold bg-secondary hover:bg-transparent hover:border-white hover:text-white",
+        "text-white border-2 border-[#62688E] font-bold bg-[#62688E] hover:bg-transparent hover:border-white hover:text-white",
     },
     solid: {
       login:
@@ -163,7 +163,7 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
                       "inline-flex items-center gap-1 pb-1 transition-colors cursor-pointer text-sm xl:text-base",
                       linkTextStyles[variant],
                       pathname === ele.ref
-                        ? "text-secondary border-b-4 border-secondary rounded-b-[3px]"
+                        ? "text-white border-b-4 border-white rounded-b-[3px]"
                         : "border-b-4 border-transparent"
                     )}
                   >
@@ -221,7 +221,7 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
                     pathname === ele.ref ||
                       (ele.ref === "/" &&
                         (pathname === "/ar" || pathname === "/en"))
-                      ? "text-secondary border-b-4 border-secondary rounded-b-[3px]"
+                      ? "text-white border-b-4 border-white rounded-b-[3px]"
                       : "border-b-4 border-transparent"
                   )}
                 >
@@ -234,7 +234,7 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
             <button
               onClick={switchLocale}
               className={cn(
-                "flex items-center gap-2 mb-1 cursor-pointer hover:text-secondary transition-colors",
+                "flex items-center gap-2 mb-1 cursor-pointer hover:text-white transition-colors",
                 variant === "solid" && "text-primary"
               )}
             >

@@ -46,7 +46,7 @@ export default function LandingPage() {
               >
                 <h1 className="text-5xl lg:text-[64px] font-bold mb-6 leading-tight text-stroke">
                   {t("title")}{" "}
-                  <span className="text-secondary">{t("titleHighlight")}</span>
+                  <span className="text-white">{t("titleHighlight")}</span>
                 </h1>
 
                 <p className="text-lg lg:text-xl mb-8 leading-relaxed opacity-90">
@@ -57,7 +57,7 @@ export default function LandingPage() {
                   onClick={() =>
                     router.push("/user-profile/loans/loan-request")
                   }
-                  className={`bg-secondary cursor-pointer hover:bg-secondary/90 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 flex items-center gap-2 w-fit mx-auto ${
+                  className={`bg-[#838AB0] cursor-pointer hover:bg-secondary/90 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 flex items-center gap-2 w-fit mx-auto ${
                     isRTL
                       ? "lg:ml-0 lg:mr-auto -translate-x-10"
                       : "lg:mr-0 lg:ml-auto translate-x-10"
