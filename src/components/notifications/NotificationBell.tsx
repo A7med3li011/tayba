@@ -8,15 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import mainLogo from "@/assets/images/logo.png";
 import { Link } from "@/i18n/navigation";
 import { useNotificationContext } from "@/contexts/NotificationContext";
-
-interface Notification {
-  id: string;
-  message: string;
-  time: string;
-  type: "approved" | "reminder";
-  isStarred: boolean;
-  isRead: boolean;
-}
+import { Notification } from "@/hooks/useNotifications";
 
 export function NotificationBell() {
   const t = useTranslations("userProfile.notificationsPage");
@@ -25,7 +17,8 @@ export function NotificationBell() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Use global notification context (subscribed at top level)
-  const { notifications, unreadCount: globalUnreadCount } = useNotificationContext();
+  const { notifications, unreadCount: globalUnreadCount } =
+    useNotificationContext();
 
   console.log("Global notifications:", notifications);
 
@@ -148,7 +141,7 @@ export function NotificationBell() {
 }
 
 interface NotificationListItemProps {
-  notification: any;
+  notification: Notification;
   isLast: boolean;
 }
 
