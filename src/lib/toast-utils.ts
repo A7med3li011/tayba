@@ -73,23 +73,7 @@ export function showSessionExpiredToast(message?: string) {
   const defaultMessage =
     "جلسة غير صالحة أو منتهية الصلاحية - يرجى تسجيل الدخول مرة أخرى";
 
-  return toast.error(message || defaultMessage, {
-    duration: 7000,
-    position: "top-center",
-    icon: React.createElement(Icon, {
-      icon: "lucide:lock",
-      className: "w-5 h-5",
-    }),
-    style: {
-      border: "2px solid #ef4444",
-      padding: "20px",
-      fontSize: "15px",
-      fontWeight: "600",
-      background: "#fef2f2",
-      color: "#991b1b",
-      boxShadow: "0 10px 40px rgba(239, 68, 68, 0.2)",
-    },
-  });
+  return true;
 }
 
 export function handleApiError(error: {

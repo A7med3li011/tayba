@@ -1,6 +1,7 @@
 import SaudiRiyalIcon from "@/assets/images/SaudiRiyalSymbol.svg";
 import React from "react";
 import { AiOutlineDollar } from "react-icons/ai";
+import { useTranslations } from "next-intl";
 
 interface ActiveLoan {
   id?: number;
@@ -18,6 +19,7 @@ interface LoanStatusCardProps {
 }
 
 function LoanStatusCard({ activeLoan }: LoanStatusCardProps) {
+  const t = useTranslations("userProfile.loanStatusCard");
   const isLoading = false;
   const hasLoans = !!activeLoan;
 
@@ -74,14 +76,14 @@ function LoanStatusCard({ activeLoan }: LoanStatusCardProps) {
             <AiOutlineDollar className="w-16 h-16 text-white" />
           </div>
           <h3 className="text-2xl font-bold text-white mb-3">
-            لا توجد قروض حالياً
+            {t("noLoans")}
           </h3>
           <p className="text-white/80 text-base max-w-sm leading-relaxed">
-            لم يتم العثور على أي قروض نشطة في حسابك في الوقت الحالي
+            {t("noLoansDescription")}
           </p>
           <div className="mt-6 flex items-center gap-2 text-white/60 text-sm">
             <div className="w-2 h-2 bg-white/60 rounded-full"></div>
-            <span>سيتم عرض تفاصيل القرض هنا عند التوفر</span>
+            <span>{t("loanDetailsAvailable")}</span>
           </div>
         </div>
       </div>
@@ -108,7 +110,7 @@ function LoanStatusCard({ activeLoan }: LoanStatusCardProps) {
           </div>
           {/* Remaining Installments below circle */}
           <div className="text-center flex items-center gap-2 mt-4">
-            <div className="font-bold">الأقساط المتبقية</div>
+            <div className="font-bold">{t("remainingInstallments")}</div>
             <div className="text-2xl font-bold">
               {activeLoan?.remaining_installments || 0}
             </div>
@@ -122,7 +124,7 @@ function LoanStatusCard({ activeLoan }: LoanStatusCardProps) {
             <div className="bg-white/20 rounded-full p-1.5">
               <AiOutlineDollar className="w-6 h-6 text-white" />
             </div>
-            <span className="font-bold text-lg">إجمالي القرض</span>
+            <span className="font-bold text-lg">{t("totalLoan")}</span>
           </div>
 
           {/* Amount Display */}
@@ -136,7 +138,7 @@ function LoanStatusCard({ activeLoan }: LoanStatusCardProps) {
           {/* Bottom Info Row */}
           <div className="flex items-center justify-between text-sm opacity-90">
             <div className="text-start flex gap-2">
-              <span className="font-bold text-lg">تاريخ الانتهاء</span>
+              <span className="font-bold text-lg">{t("endDate")}</span>
               <span className="text-lg">{activeLoan?.end_date || "-"}</span>
             </div>
           </div>

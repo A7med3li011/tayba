@@ -511,6 +511,14 @@
     "loansPage": {
       "title": "القروض",
       "requestLoan": "طلب قرض"
+    },
+    "loanStatusCard": {
+      "noLoans": "لا توجد قروض حالياً",
+      "noLoansDescription": "لم يتم العثور على أي قروض نشطة في حسابك في الوقت الحالي",
+      "loanDetailsAvailable": "سيتم عرض تفاصيل القرض هنا عند التوفر",
+      "remainingInstallments": "الأقساط المتبقية",
+      "totalLoan": "إجمالي القرض",
+      "endDate": "تاريخ الانتهاء"
     }
   },
   "common": {
