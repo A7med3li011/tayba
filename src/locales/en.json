@@ -511,6 +511,14 @@
     "loansPage": {
       "title": "Loans",
       "requestLoan": "Request Loan"
+    },
+    "loanStatusCard": {
+      "noLoans": "No Loans Currently",
+      "noLoansDescription": "No active loans found in your account at this time",
+      "loanDetailsAvailable": "Loan details will be displayed here when available",
+      "remainingInstallments": "Remaining Installments",
+      "totalLoan": "Total Loan",
+      "endDate": "End Date"
     }
   },
   "common": {
