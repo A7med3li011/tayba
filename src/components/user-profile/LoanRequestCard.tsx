@@ -12,6 +12,7 @@ import { getCountries } from '@/actions/loan.actions';
 import { getProfileData } from '@/actions/profile.actions';
 import { requestLoan } from '@/actions/loan.actions';
 import { Button } from '../ui/button';
+import { useTranslations } from 'next-intl';
 
 function normalizeToISODate(input: string): string {
     if (!input) return '';
@@ -48,6 +49,8 @@ interface LoanReason {
 }
 
 function LoanRequestForm() {
+    const t = useTranslations('loanRequestForm');
+    const tc = useTranslations('common');
     const [countries, setCountries] = useState<Country[]>([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitMessage, setSubmitMessage] = useState<string | null>(null);
@@ -213,7 +216,7 @@ function LoanRequestForm() {
         // Check if all checkboxes are checked
         const allCheckboxesChecked = Object.values(checkboxStates).every(checked => checked);
         if (!allCheckboxesChecked) {
-            setCheckboxWarning('يجب الموافقة على جميع الشروط قبل إرسال الطلب');
+            setCheckboxWarning(t('validation.allTermsRequired'));
             return;
         }
         
@@ -273,7 +276,7 @@ function LoanRequestForm() {
             form.append('rent_amount_number', String(financialData.rentAmount ?? ''));
             form.append('electricity_avg_number', String(financialData.electricityAvg ?? ''));
             form.append('has_other_commitments', String(financialData.hasOtherCommitments));
-            form.append('other_commitments_details', financialData.hasOtherCommitments ? (financialData.otherCommitmentsDetails ?? '') : 'لا توجد التزامات أخرى');
+            form.append('other_commitments_details', financialData.hasOtherCommitments ? (financialData.otherCommitmentsDetails ?? '') : t('messages.noOtherCommitments'));
 
             // Requester Files - Append files only if they exist, otherwise append empty string
             if (signatureFile) {
@@ -390,9 +393,9 @@ function LoanRequestForm() {
             }
 
             const res = await requestLoan(form);
-            setSubmitMessage(res.message ?? (res.success ? 'تم إرسال الطلب' : 'فشل إرسال الطلب'));
+            setSubmitMessage(res.message ?? (res.success ? t('messages.submitSuccess') : t('messages.submitError')));
         } catch {
-            setSubmitMessage('حدث خطأ أثناء الإرسال');
+            setSubmitMessage(t('messages.unexpectedError'));
         } finally {
             setIsSubmitting(false);
         }
@@ -402,7 +405,7 @@ function LoanRequestForm() {
         <Card className="w-full bg-gray-50 border-0 shadow-lg">
             <CardHeader className="pb-3 sm:pb-4">
                 <CardTitle className="text-primary text-lg sm:text-xl font-bold bg-[#D0D5DD52] px-4 sm:px-6 py-2 sm:py-3 rounded-xl">
-                    بيانات المقترض
+                    {t('title')}
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 sm:space-y-6">
@@ -410,13 +413,13 @@ function LoanRequestForm() {
                     <div className="space-y-4">
                         <div className="pb-2">
                             <h2 className="text-[#919499] text-xl font-bold text-right border-b border-gray-200 pb-3">
-                                البيانات الشخصية
+                                {t('personalInformation')}
                             </h2>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                             <div className="space-y-2 col-span-2">
                                 <Label htmlFor="fullName" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    الاسم رباعي
+                                    {t('fields.fullName')}
                                 </Label>
                                 <Input
                                     id="fullName"
