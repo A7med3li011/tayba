@@ -9,7 +9,6 @@ import FileUploadField from './FileUploadField';
 import FinancialStatusForm from './FinancialStatusForm';
 import GuarantorInformationForm from './GuarantorInformationForm';
 import { getCountries } from '@/actions/loan.actions';
-import { getLoanReasons } from '@/actions/loan.actions';
 import { getProfileData } from '@/actions/profile.actions';
 import { requestLoan } from '@/actions/loan.actions';
 import { Button } from '../ui/button';
@@ -50,7 +49,6 @@ interface LoanReason {
 
 function LoanRequestForm() {
     const [countries, setCountries] = useState<Country[]>([]);
-    const [loanReasons, setLoanReasons] = useState<LoanReason[]>([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitMessage, setSubmitMessage] = useState<string | null>(null);
     const [userInfo, setUserInfo] = useState({
@@ -70,7 +68,23 @@ function LoanRequestForm() {
         contactPersonPhone: '',
         loanAmount: '1000',
         installmentCount: 'اختيار',
-        purpose: 'اختيار'
+        purpose: '',
+        jobTitle: '',
+        totalSalary: '',
+        jobStartDate: '',
+        employer: '',
+        employerAddress: '',
+        directManagerName: '',
+        directManagerJobTitle: '',
+        hasPreviousLoan: false,
+        isPreviousLoanPaid: false,
+        isCurrentGuarantor: false,
+        guaranteedBorrowerName: '',
+        hasMonthlyInstallments: false,
+        totalMonthlyInstallments: '',
+        hasAdditionalIncome: false,
+        totalAdditionalIncome: '',
+        loanBeneficiary: ''
     });
 
     const [financialData, setFinancialData] = useState({
@@ -95,6 +109,15 @@ function LoanRequestForm() {
         city: '',
         backupName: '',
         backupPhone: '',
+        jobTitle: '',
+        totalSalary: '',
+        jobStartDate: '',
+        employer: '',
+        employerAddress: '',
+        directManagerName: '',
+        directManagerJobTitle: '',
+        hasActiveLoan: false,
+        remainingLoanAmount: '',
         signatureFile: null as File | null,
         nationalAddressFile: null as File | null,
         validIdFile: null as File | null,
@@ -135,7 +158,7 @@ function LoanRequestForm() {
         setFinancialData(prev => ({ ...prev, [field]: value }));
     };
 
-    const handleGuarantorChange = (field: keyof typeof guarantorData, value: string | File | null) => {
+    const handleGuarantorChange = (field: keyof typeof guarantorData, value: string | boolean | File | null) => {
         setGuarantorData(prev => ({ ...prev, [field]: value }));
     };
 
@@ -160,11 +183,6 @@ function LoanRequestForm() {
         setCountries(res?.countries ?? []);
     };
 
-    const getLoanReasonsList = async () => {
-        const res = await getLoanReasons();
-        setLoanReasons(res?.loan_reasons ?? []);
-    };
-
     const getUserProfileData = async () => {
         try {
             const data = await getProfileData();
@@ -182,7 +200,6 @@ function LoanRequestForm() {
 
     useEffect(() => {
         getCountriesList();
-        getLoanReasonsList();
         getUserProfileData();
     }, []);
 
@@ -220,10 +237,36 @@ function LoanRequestForm() {
             form.append('requester_backup_name', formData.contactPerson ?? '');
             form.append('requester_backup_phone', formData.contactPersonPhone ?? '');
 
+            // Additional job-related fields
+            form.append('requester_job_title', formData.jobTitle ?? '');
+            form.append('requester_total_salary', formData.totalSalary ?? '');
+            form.append('requester_job_start_date', formData.jobStartDate ?? '');
+            form.append('requester_employer', formData.employer ?? '');
+            form.append('requester_employer_address', formData.employerAddress ?? '');
+            form.append('requester_direct_manager_name', formData.directManagerName ?? '');
+            form.append('requester_direct_manager_job_title', formData.directManagerJobTitle ?? '');
+
+            // Previous loan information
+            form.append('has_previous_loan', String(formData.hasPreviousLoan));
+            form.append('is_previous_loan_paid', String(formData.isPreviousLoanPaid));
+
+            // Current guarantor information
+            form.append('is_current_guarantor', String(formData.isCurrentGuarantor));
+            form.append('guaranteed_borrower_name', formData.guaranteedBorrowerName ?? '');
+
+            // Monthly installments information
+            form.append('has_monthly_installments', String(formData.hasMonthlyInstallments));
+            form.append('total_monthly_installments', formData.totalMonthlyInstallments ?? '');
+
+            // Additional income information
+            form.append('has_additional_income', String(formData.hasAdditionalIncome));
+            form.append('total_additional_income', formData.totalAdditionalIncome ?? '');
+
             // Loan meta
             form.append('number_of_installments', formData.installmentCount === 'اختيار' ? '' : String(formData.installmentCount));
             form.append('loan_amount_number', String(formData.loanAmount ?? ''));
-            form.append('loan_reason_id', formData.purpose === 'اختيار' ? '' : String(formData.purpose));
+            form.append('loan_reason', formData.purpose ?? '');
+            form.append('loan_beneficiary', formData.loanBeneficiary ?? '');
 
             // Financial data
             form.append('income_amount_number', String(financialData.incomeAmount ?? ''));
@@ -301,6 +344,19 @@ function LoanRequestForm() {
             form.append('guarantor_city', guarantorData.city ?? '');
             form.append('guarantor_backup_name', guarantorData.backupName ?? '');
             form.append('guarantor_backup_phone', guarantorData.backupPhone ?? '');
+
+            // Additional guarantor job-related fields
+            form.append('guarantor_job_title', guarantorData.jobTitle ?? '');
+            form.append('guarantor_total_salary', guarantorData.totalSalary ?? '');
+            form.append('guarantor_job_start_date', guarantorData.jobStartDate ?? '');
+            form.append('guarantor_employer', guarantorData.employer ?? '');
+            form.append('guarantor_employer_address', guarantorData.employerAddress ?? '');
+            form.append('guarantor_direct_manager_name', guarantorData.directManagerName ?? '');
+            form.append('guarantor_direct_manager_job_title', guarantorData.directManagerJobTitle ?? '');
+
+            // Guarantor active loan information
+            form.append('guarantor_has_active_loan', String(guarantorData.hasActiveLoan));
+            form.append('guarantor_remaining_loan_amount', guarantorData.remainingLoanAmount ?? '');
 
             // Guarantor Files - All from guarantorData object
             if (guarantorData.signatureFile) {
@@ -474,10 +530,384 @@ function LoanRequestForm() {
                                     type="tel"
                                     placeholder="ادخال"
                                     value={formData.workPhone}
-                                    onChange={(e) => setFormData({ ...formData, workPhone: e.target.value })}
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        if (value === '' || /^[0-9+\-\s()]*$/.test(value)) {
+                                            setFormData({ ...formData, workPhone: value });
+                                        }
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (!/[0-9+\-\s()]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                            e.preventDefault();
+                                        }
+                                    }}
                                     className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
                                 />
                             </div>
+
+                            {/* Job Title */}
+                            <div className="space-y-2">
+                                <Label htmlFor="jobTitle" className="block text-gray-600 font-bold text-sm sm:text-base">
+                                    المسمى الوظيفي لطالب القرض
+                                </Label>
+                                <Input
+                                    id="jobTitle"
+                                    type="text"
+                                    placeholder="ادخال"
+                                    value={formData.jobTitle}
+                                    onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
+                                    className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
+                                />
+                            </div>
+
+                            {/* Total Salary */}
+                            <div className="space-y-2">
+                                <Label htmlFor="totalSalary" className="block text-gray-600 font-bold text-sm sm:text-base">
+                                    اجمالي الراتب
+                                </Label>
+                                <Input
+                                    id="totalSalary"
+                                    type="text"
+                                    placeholder="ادخال"
+                                    value={formData.totalSalary}
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                                            setFormData({ ...formData, totalSalary: value });
+                                        }
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (!/[0-9.]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                            e.preventDefault();
+                                        }
+                                    }}
+                                    className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
+                                />
+                            </div>
+
+                            {/* Job Start Date */}
+                            <div className="space-y-2">
+                                <Label htmlFor="jobStartDate" className="block text-gray-600 font-bold text-sm sm:text-base">
+                                    تاريخ مباشرة الوظيفة
+                                </Label>
+                                <Input
+                                    id="jobStartDate"
+                                    type="date"
+                                    placeholder="YYYY-MM-DD"
+                                    value={formData.jobStartDate}
+                                    onChange={(e) => setFormData({ ...formData, jobStartDate: e.target.value })}
+                                    className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
+                                />
+                            </div>
+
+                            {/* Employer */}
+                            <div className="space-y-2">
+                                <Label htmlFor="employer" className="block text-gray-600 font-bold text-sm sm:text-base">
+                                    جهة العمل
+                                </Label>
+                                <Input
+                                    id="employer"
+                                    type="text"
+                                    placeholder="ادخال"
+                                    value={formData.employer}
+                                    onChange={(e) => setFormData({ ...formData, employer: e.target.value })}
+                                    className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
+                                />
+                            </div>
+
+                            {/* Employer Address */}
+                            <div className="space-y-2">
+                                <Label htmlFor="employerAddress" className="block text-gray-600 font-bold text-sm sm:text-base">
+                                    عنوان جهة العمل
+                                </Label>
+                                <Input
+                                    id="employerAddress"
+                                    type="text"
+                                    placeholder="ادخال"
+                                    value={formData.employerAddress}
+                                    onChange={(e) => setFormData({ ...formData, employerAddress: e.target.value })}
+                                    className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
+                                />
+                            </div>
+
+                            {/* Direct Manager Name */}
+                            <div className="space-y-2">
+                                <Label htmlFor="directManagerName" className="block text-gray-600 font-bold text-sm sm:text-base">
+                                    اسم المدير المباشر
+                                </Label>
+                                <Input
+                                    id="directManagerName"
+                                    type="text"
+                                    placeholder="ادخال"
+                                    value={formData.directManagerName}
+                                    onChange={(e) => setFormData({ ...formData, directManagerName: e.target.value })}
+                                    className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
+                                />
+                            </div>
+
+                            {/* Direct Manager Job Title */}
+                            <div className="space-y-2">
+                                <Label htmlFor="directManagerJobTitle" className="block text-gray-600 font-bold text-sm sm:text-base">
+                                    المسمى الوظيفي للمدير المباشر
+                                </Label>
+                                <Input
+                                    id="directManagerJobTitle"
+                                    type="text"
+                                    placeholder="ادخال"
+                                    value={formData.directManagerJobTitle}
+                                    onChange={(e) => setFormData({ ...formData, directManagerJobTitle: e.target.value })}
+                                    className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
+                                />
+                            </div>
+
+                            {/* Previous Loan Question */}
+                            <div className="space-y-2 col-span-2">
+                                <Label className="block text-gray-700 font-bold text-sm sm:text-base mb-3">
+                                    هل سبق ان حصلت علي قرض من الوقف؟
+                                </Label>
+                                <div className="flex items-center gap-6">
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            type="radio"
+                                            id="hasPreviousLoanYes"
+                                            name="hasPreviousLoan"
+                                            checked={formData.hasPreviousLoan === true}
+                                            onChange={() => setFormData({ ...formData, hasPreviousLoan: true })}
+                                            className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                        />
+                                        <Label htmlFor="hasPreviousLoanYes" className="text-gray-700 cursor-pointer text-sm sm:text-base">
+                                            نعم
+                                        </Label>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            type="radio"
+                                            id="hasPreviousLoanNo"
+                                            name="hasPreviousLoan"
+                                            checked={formData.hasPreviousLoan === false}
+                                            onChange={() => setFormData({ ...formData, hasPreviousLoan: false, isPreviousLoanPaid: false })}
+                                            className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                        />
+                                        <Label htmlFor="hasPreviousLoanNo" className="text-gray-700 cursor-pointer text-sm sm:text-base">
+                                            لا
+                                        </Label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Conditional: If Previous Loan - Ask if Paid */}
+                            {formData.hasPreviousLoan && (
+                                <div className="space-y-2 col-span-2">
+                                    <Label className="block text-gray-700 font-bold text-sm sm:text-base mb-3">
+                                        هل تم اكمال سداد القرض؟
+                                    </Label>
+                                    <div className="flex items-center gap-6 pl-8">
+                                        <div className="flex items-center gap-2">
+                                            <input
+                                                type="radio"
+                                                id="isPreviousLoanPaidYes"
+                                                name="isPreviousLoanPaid"
+                                                checked={formData.isPreviousLoanPaid === true}
+                                                onChange={() => setFormData({ ...formData, isPreviousLoanPaid: true })}
+                                                className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                            />
+                                            <Label htmlFor="isPreviousLoanPaidYes" className="text-gray-700 cursor-pointer text-sm sm:text-base">
+                                                نعم
+                                            </Label>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <input
+                                                type="radio"
+                                                id="isPreviousLoanPaidNo"
+                                                name="isPreviousLoanPaid"
+                                                checked={formData.isPreviousLoanPaid === false}
+                                                onChange={() => setFormData({ ...formData, isPreviousLoanPaid: false })}
+                                                className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                            />
+                                            <Label htmlFor="isPreviousLoanPaidNo" className="text-gray-700 cursor-pointer text-sm sm:text-base">
+                                                لا
+                                            </Label>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Current Guarantor Question */}
+                            <div className="space-y-2 col-span-2">
+                                <Label className="block text-gray-700 font-bold text-sm sm:text-base mb-3">
+                                    هل طالب القرض كفيل حاليا في الوقف؟
+                                </Label>
+                                <div className="flex items-center gap-6">
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            type="radio"
+                                            id="isCurrentGuarantorYes"
+                                            name="isCurrentGuarantor"
+                                            checked={formData.isCurrentGuarantor === true}
+                                            onChange={() => setFormData({ ...formData, isCurrentGuarantor: true })}
+                                            className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                        />
+                                        <Label htmlFor="isCurrentGuarantorYes" className="text-gray-700 cursor-pointer text-sm sm:text-base">
+                                            نعم
+                                        </Label>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            type="radio"
+                                            id="isCurrentGuarantorNo"
+                                            name="isCurrentGuarantor"
+                                            checked={formData.isCurrentGuarantor === false}
+                                            onChange={() => setFormData({ ...formData, isCurrentGuarantor: false, guaranteedBorrowerName: '' })}
+                                            className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                        />
+                                        <Label htmlFor="isCurrentGuarantorNo" className="text-gray-700 cursor-pointer text-sm sm:text-base">
+                                            لا
+                                        </Label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Conditional: If Current Guarantor - Ask for Borrower Name */}
+                            {formData.isCurrentGuarantor && (
+                                <div className="space-y-2 col-span-2">
+                                    <Label htmlFor="guaranteedBorrowerName" className="block text-gray-700 font-bold text-sm sm:text-base">
+                                        ما اسم المقترض؟
+                                    </Label>
+                                    <Input
+                                        id="guaranteedBorrowerName"
+                                        type="text"
+                                        placeholder="ادخال اسم المقترض"
+                                        value={formData.guaranteedBorrowerName}
+                                        onChange={(e) => setFormData({ ...formData, guaranteedBorrowerName: e.target.value })}
+                                        className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
+                                    />
+                                </div>
+                            )}
+
+                            {/* Monthly Installments Question */}
+                            <div className="space-y-2 col-span-2">
+                                <Label className="block text-gray-700 font-bold text-sm sm:text-base mb-3">
+                                    هل المقترض لديه اقساط شهرية لجهات اخرى؟
+                                </Label>
+                                <div className="flex items-center gap-6">
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            type="radio"
+                                            id="hasMonthlyInstallmentsYes"
+                                            name="hasMonthlyInstallments"
+                                            checked={formData.hasMonthlyInstallments === true}
+                                            onChange={() => setFormData({ ...formData, hasMonthlyInstallments: true })}
+                                            className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                        />
+                                        <Label htmlFor="hasMonthlyInstallmentsYes" className="text-gray-700 cursor-pointer text-sm sm:text-base">
+                                            نعم
+                                        </Label>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            type="radio"
+                                            id="hasMonthlyInstallmentsNo"
+                                            name="hasMonthlyInstallments"
+                                            checked={formData.hasMonthlyInstallments === false}
+                                            onChange={() => setFormData({ ...formData, hasMonthlyInstallments: false, totalMonthlyInstallments: '' })}
+                                            className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                        />
+                                        <Label htmlFor="hasMonthlyInstallmentsNo" className="text-gray-700 cursor-pointer text-sm sm:text-base">
+                                            لا
+                                        </Label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Conditional: If Has Monthly Installments - Ask for Total Amount */}
+                            {formData.hasMonthlyInstallments && (
+                                <div className="space-y-2 col-span-2">
+                                    <Label htmlFor="totalMonthlyInstallments" className="block text-gray-700 font-bold text-sm sm:text-base">
+                                        ما هو اجمالي الاقساط الشهرية؟
+                                    </Label>
+                                    <Input
+                                        id="totalMonthlyInstallments"
+                                        type="text"
+                                        placeholder="ادخال اجمالي الاقساط الشهرية"
+                                        value={formData.totalMonthlyInstallments}
+                                        onChange={(e) => {
+                                            const value = e.target.value;
+                                            if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                                                setFormData({ ...formData, totalMonthlyInstallments: value });
+                                            }
+                                        }}
+                                        onKeyDown={(e) => {
+                                            if (!/[0-9.]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                                e.preventDefault();
+                                            }
+                                        }}
+                                        className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
+                                    />
+                                </div>
+                            )}
+
+                            {/* Additional Income Question */}
+                            <div className="space-y-2 col-span-2">
+                                <Label className="block text-gray-700 font-bold text-sm sm:text-base mb-3">
+                                    هل طالب القرض لديه مصادر دخل اضافية؟
+                                </Label>
+                                <div className="flex items-center gap-6">
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            type="radio"
+                                            id="hasAdditionalIncomeYes"
+                                            name="hasAdditionalIncome"
+                                            checked={formData.hasAdditionalIncome === true}
+                                            onChange={() => setFormData({ ...formData, hasAdditionalIncome: true })}
+                                            className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                        />
+                                        <Label htmlFor="hasAdditionalIncomeYes" className="text-gray-700 cursor-pointer text-sm sm:text-base">
+                                            نعم
+                                        </Label>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <input
+                                            type="radio"
+                                            id="hasAdditionalIncomeNo"
+                                            name="hasAdditionalIncome"
+                                            checked={formData.hasAdditionalIncome === false}
+                                            onChange={() => setFormData({ ...formData, hasAdditionalIncome: false, totalAdditionalIncome: '' })}
+                                            className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                        />
+                                        <Label htmlFor="hasAdditionalIncomeNo" className="text-gray-700 cursor-pointer text-sm sm:text-base">
+                                            لا
+                                        </Label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Conditional: If Has Additional Income - Ask for Total Monthly Amount */}
+                            {formData.hasAdditionalIncome && (
+                                <div className="space-y-2 col-span-2">
+                                    <Label htmlFor="totalAdditionalIncome" className="block text-gray-700 font-bold text-sm sm:text-base">
+                                        فكم هو الاجمالي الشهري؟
+                                    </Label>
+                                    <Input
+                                        id="totalAdditionalIncome"
+                                        type="text"
+                                        placeholder="ادخال الاجمالي الشهري"
+                                        value={formData.totalAdditionalIncome}
+                                        onChange={(e) => {
+                                            const value = e.target.value;
+                                            if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                                                setFormData({ ...formData, totalAdditionalIncome: value });
+                                            }
+                                        }}
+                                        onKeyDown={(e) => {
+                                            if (!/[0-9.]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                                e.preventDefault();
+                                            }
+                                        }}
+                                        className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
+                                    />
+                                </div>
+                            )}
+
                             {/* Contact Person */}
                             <div className="space-y-2">
                                 <Label htmlFor="contactPerson" className="block text-gray-600 font-bold">
@@ -503,7 +933,17 @@ function LoanRequestForm() {
                                     type="tel"
                                     placeholder="966389010"
                                     value={formData.contactPersonPhone}
-                                    onChange={(e) => setFormData({ ...formData, contactPersonPhone: e.target.value })}
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        if (value === '' || /^[0-9+\-\s()]*$/.test(value)) {
+                                            setFormData({ ...formData, contactPersonPhone: value });
+                                        }
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (!/[0-9+\-\s()]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                            e.preventDefault();
+                                        }
+                                    }}
                                     className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
                                 />
                             </div>
@@ -558,7 +998,17 @@ function LoanRequestForm() {
                                     id="loanAmount"
                                     type="text"
                                     value={formData.loanAmount}
-                                    onChange={(e) => setFormData({ ...formData, loanAmount: e.target.value })}
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                                            setFormData({ ...formData, loanAmount: value });
+                                        }
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (!/[0-9.]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                            e.preventDefault();
+                                        }
+                                    }}
                                     className="h-12 rounded-lg border-gray-300 bg-white"
                                 />
                             </div>
@@ -566,22 +1016,31 @@ function LoanRequestForm() {
                             {/* Purpose */}
                             <div className="space-y-2">
                                 <Label htmlFor="purpose" className="block text-gray-600 font-bold">
-                                    الغرض
+                                    سبب طلب القرض
                                 </Label>
-                                <div className="relative">
-                                    <select
-                                        id="purpose"
-                                        value={formData.purpose}
-                                        onChange={(e) => setFormData({ ...formData, purpose: e.target.value })}
-                                        className="h-12 w-full rounded-lg border border-gray-300 bg-white px-3 appearance-none cursor-pointer text-gray-600"
-                                    >
-                                        <option value="اختيار">اختيار</option>
-                                        {loanReasons.map((r: LoanReason) => (
-                                            <option key={r.id} value={String(r.id)}>{r.name}</option>
-                                        ))}
-                                    </select>
-                                    <ChevronDown className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-                                </div>
+                                <Input
+                                    id="purpose"
+                                    type="text"
+                                    placeholder="ادخال سبب طلب القرض"
+                                    value={formData.purpose}
+                                    onChange={(e) => setFormData({ ...formData, purpose: e.target.value })}
+                                    className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                                />
+                            </div>
+
+                            {/* Loan Beneficiary */}
+                            <div className="space-y-2 col-span-2">
+                                <Label htmlFor="loanBeneficiary" className="block text-gray-600 font-bold">
+                                    من هو (الفرد\الجهة) المستحقة لهذا القرض؟
+                                </Label>
+                                <Input
+                                    id="loanBeneficiary"
+                                    type="text"
+                                    placeholder="ادخال اسم الفرد أو الجهة المستحقة"
+                                    value={formData.loanBeneficiary}
+                                    onChange={(e) => setFormData({ ...formData, loanBeneficiary: e.target.value })}
+                                    className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                                />
                             </div>
 
 
@@ -651,12 +1110,12 @@ function LoanRequestForm() {
 
                             {/* Row 5: Promissory Note (Full Width) */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <FileUploadField
+                                {/* <FileUploadField
                                     id="promissoryNote"
                                     label="سند لأمر"
                                     selectedFile={files.promissoryNote as unknown as File | null}
                                     onChange={(e) => handleFileUpload('promissoryNote', e)}
-                                />
+                                /> */}
                                 <FileUploadField
                                     id="signature"
                                     label="التوقيع"

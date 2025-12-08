@@ -18,8 +18,18 @@ interface RegisterFormData {
   name: string;
   email: string;
   phone: string;
+  phone2: string;
   national_id: string;
   id_expiry_date: string;
+  gender: string;
+  birthdate: string;
+  marital_status: string;
+  building_number: string;
+  street_name: string;
+  sub_number: string;
+  district: string;
+  postal_code: string;
+  city: string;
   password: string;
   confirmPassword: string;
 }
@@ -49,6 +59,12 @@ export default function Register() {
         .min(9, t("validation.phoneLength"))
         .max(15, t("validation.phoneLength"))
         .regex(/^\d+$/, t("validation.phoneNumeric")),
+      phone2: z
+        .string()
+        .nonempty("رقم الجوال 2 مطلوب")
+        .min(9, "رقم الجوال يجب أن يكون بين 9 و 15 رقم")
+        .max(15, "رقم الجوال يجب أن يكون بين 9 و 15 رقم")
+        .regex(/^\d+$/, "رقم الجوال يجب أن يحتوي على أرقام فقط"),
       national_id: z
         .string()
         .nonempty(t("validation.nationalIdRequired"))
@@ -61,6 +77,36 @@ export default function Register() {
           (date) => new Date(date) >= new Date(new Date().setHours(0, 0, 0, 0)),
           t("validation.expiryDateFuture")
         ),
+      gender: z.string().nonempty("الجنس مطلوب"),
+      birthdate: z.string().nonempty("تاريخ الميلاد مطلوب"),
+      marital_status: z.string().nonempty("الحالة الاجتماعية مطلوبة"),
+      building_number: z
+        .string()
+        .nonempty("رقم المبنى مطلوب")
+        .length(4, "رقم المبنى يجب أن يكون 4 أرقام")
+        .regex(/^\d{4}$/, "رقم المبنى يجب أن يكون 4 أرقام فقط"),
+      street_name: z
+        .string()
+        .nonempty("اسم الشارع مطلوب")
+        .regex(/^[\u0600-\u06FF\s]+$/, "اسم الشارع يجب أن يحتوي على أحرف عربية فقط"),
+      sub_number: z
+        .string()
+        .nonempty("الرقم الفرعي مطلوب")
+        .length(4, "الرقم الفرعي يجب أن يكون 4 أرقام")
+        .regex(/^\d{4}$/, "الرقم الفرعي يجب أن يكون 4 أرقام فقط"),
+      district: z
+        .string()
+        .nonempty("الحي مطلوب")
+        .regex(/^[\u0600-\u06FF\s]+$/, "الحي يجب أن يحتوي على أحرف عربية فقط"),
+      postal_code: z
+        .string()
+        .nonempty("الرمز البريدي مطلوب")
+        .length(5, "الرمز البريدي يجب أن يكون 5 أرقام")
+        .regex(/^\d{5}$/, "الرمز البريدي يجب أن يكون 5 أرقام فقط"),
+      city: z
+        .string()
+        .nonempty("المدينة مطلوبة")
+        .regex(/^[\u0600-\u06FF\s]+$/, "المدينة يجب أن تحتوي على أحرف عربية فقط"),
       password: z
         .string()
         .nonempty(t("validation.passwordRequired"))
@@ -185,26 +231,51 @@ export default function Register() {
             <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
           )}
         </div>
-        {/* Phone Field */}
-        <div className="space-y-2">
-          <Label
-            htmlFor="phone"
-            className="text-sm font-bold text-[#919499] block"
-          >
-            {t("register.phone")}
-          </Label>
-          <Input
-            dir="rtl"
-            id="phone"
-            type="tel"
-            placeholder={t("register.phonePlaceholder")}
-            className="h-12 placeholder:text-gray-400 placeholder:text-start border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            {...register("phone")}
-            required
-          />
-          {errors.phone && (
-            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
-          )}
+        {/* Phone Fields */}
+        <div className="grid grid-cols-2 gap-4">
+          {/* Phone 1 Field */}
+          <div className="space-y-2">
+            <Label
+              htmlFor="phone"
+              className="text-sm font-bold text-[#919499] block"
+            >
+              رقم جوال 1
+            </Label>
+            <Input
+              dir="rtl"
+              id="phone"
+              type="tel"
+              placeholder={t("register.phonePlaceholder")}
+              className="h-12 placeholder:text-gray-400 placeholder:text-start border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              {...register("phone")}
+              required
+            />
+            {errors.phone && (
+              <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+            )}
+          </div>
+
+          {/* Phone 2 Field */}
+          <div className="space-y-2">
+            <Label
+              htmlFor="phone2"
+              className="text-sm font-bold text-[#919499] block"
+            >
+              رقم جوال 2
+            </Label>
+            <Input
+              dir="rtl"
+              id="phone2"
+              type="tel"
+              placeholder="05xxxxxxxx"
+              className="h-12 placeholder:text-gray-400 placeholder:text-start border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              {...register("phone2")}
+              required
+            />
+            {errors.phone2 && (
+              <p className="text-red-500 text-sm mt-1">{errors.phone2.message}</p>
+            )}
+          </div>
         </div>
 
         {/* ID Number and Expiry Date Fields */}
@@ -254,6 +325,214 @@ export default function Register() {
                 {errors.id_expiry_date.message}
               </p>
             )}
+          </div>
+        </div>
+
+        {/* Gender and Birthdate Fields */}
+        <div className="grid grid-cols-2 gap-4">
+          {/* Gender Field */}
+          <div className="space-y-2">
+            <Label
+              htmlFor="gender"
+              className="text-sm font-bold text-[#919499] block"
+            >
+              الجنس
+            </Label>
+            <select
+              id="gender"
+              className="h-12 w-full rounded-lg border border-gray-300 bg-white px-3 text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              {...register("gender")}
+              required
+            >
+              <option value="">اختيار</option>
+              <option value="male">ذكر</option>
+              <option value="female">أنثى</option>
+            </select>
+            {errors.gender && (
+              <p className="text-red-500 text-sm mt-1">{errors.gender.message}</p>
+            )}
+          </div>
+
+          {/* Birthdate Field */}
+          <div className="space-y-2" dir="rtl">
+            <Label
+              htmlFor="birthdate"
+              className="text-sm font-bold text-[#919499] block"
+            >
+              تاريخ الميلاد طبقًا لبطاقة الهوية
+            </Label>
+            <Input
+              id="birthdate"
+              type="date"
+              className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              {...register("birthdate")}
+              required
+            />
+            {errors.birthdate && (
+              <p className="text-red-500 text-sm mt-1">{errors.birthdate.message}</p>
+            )}
+          </div>
+        </div>
+
+        {/* Marital Status Field */}
+        <div className="space-y-2">
+          <Label
+            htmlFor="marital_status"
+            className="text-sm font-bold text-[#919499] block"
+          >
+            الحالة الاجتماعية
+          </Label>
+          <select
+            id="marital_status"
+            className="h-12 w-full rounded-lg border border-gray-300 bg-white px-3 text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            {...register("marital_status")}
+            required
+          >
+            <option value="">اختيار</option>
+            <option value="single">أعزب/عزباء</option>
+            <option value="married">متزوج/متزوجة</option>
+            <option value="divorced">مطلق/مطلقة</option>
+            <option value="widowed">أرمل/أرملة</option>
+          </select>
+          {errors.marital_status && (
+            <p className="text-red-500 text-sm mt-1">{errors.marital_status.message}</p>
+          )}
+        </div>
+
+        {/* Address Section */}
+        <div className="space-y-4 pt-4">
+          <h3 className="text-lg font-bold text-[#919499]">عنوان السكن</h3>
+
+          {/* Building Number and Street Name */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label
+                htmlFor="building_number"
+                className="text-sm font-bold text-[#919499] block"
+              >
+                رقم المبنى (4 أرقام)
+              </Label>
+              <Input
+                id="building_number"
+                type="text"
+                placeholder="1234"
+                maxLength={4}
+                className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                {...register("building_number")}
+                required
+              />
+              {errors.building_number && (
+                <p className="text-red-500 text-sm mt-1">{errors.building_number.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label
+                htmlFor="street_name"
+                className="text-sm font-bold text-[#919499] block"
+              >
+                اسم الشارع (أحرف عربية)
+              </Label>
+              <Input
+                id="street_name"
+                type="text"
+                placeholder="شارع الملك فهد"
+                className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                {...register("street_name")}
+                required
+              />
+              {errors.street_name && (
+                <p className="text-red-500 text-sm mt-1">{errors.street_name.message}</p>
+              )}
+            </div>
+          </div>
+
+          {/* Sub Number and District */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label
+                htmlFor="sub_number"
+                className="text-sm font-bold text-[#919499] block"
+              >
+                الرقم الفرعي (4 أرقام)
+              </Label>
+              <Input
+                id="sub_number"
+                type="text"
+                placeholder="5678"
+                maxLength={4}
+                className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                {...register("sub_number")}
+                required
+              />
+              {errors.sub_number && (
+                <p className="text-red-500 text-sm mt-1">{errors.sub_number.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label
+                htmlFor="district"
+                className="text-sm font-bold text-[#919499] block"
+              >
+                الحي (أحرف عربية)
+              </Label>
+              <Input
+                id="district"
+                type="text"
+                placeholder="حي السلام"
+                className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                {...register("district")}
+                required
+              />
+              {errors.district && (
+                <p className="text-red-500 text-sm mt-1">{errors.district.message}</p>
+              )}
+            </div>
+          </div>
+
+          {/* Postal Code and City */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label
+                htmlFor="postal_code"
+                className="text-sm font-bold text-[#919499] block"
+              >
+                الرمز البريدي (5 أرقام)
+              </Label>
+              <Input
+                id="postal_code"
+                type="text"
+                placeholder="12345"
+                maxLength={5}
+                className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                {...register("postal_code")}
+                required
+              />
+              {errors.postal_code && (
+                <p className="text-red-500 text-sm mt-1">{errors.postal_code.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label
+                htmlFor="city"
+                className="text-sm font-bold text-[#919499] block"
+              >
+                المدينة (أحرف عربية)
+              </Label>
+              <Input
+                id="city"
+                type="text"
+                placeholder="الرياض"
+                className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                {...register("city")}
+                required
+              />
+              {errors.city && (
+                <p className="text-red-500 text-sm mt-1">{errors.city.message}</p>
+              )}
+            </div>
           </div>
         </div>
 
