@@ -42,7 +42,17 @@ export default function FinancialStatusForm({
                             type="text"
                             placeholder="8000.00"
                             value={data.incomeAmount}
-                            onChange={(e) => onChange('incomeAmount', e.target.value)}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                                    onChange('incomeAmount', value);
+                                }
+                            }}
+                            onKeyDown={(e) => {
+                                if (!/[0-9.]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                    e.preventDefault();
+                                }
+                            }}
                             className="text-right h-12 "
                             dir="rtl"
                         />
@@ -62,7 +72,17 @@ export default function FinancialStatusForm({
                             type="text"
                             placeholder="2500.00"
                             value={data.rentAmount}
-                            onChange={(e) => onChange('rentAmount', e.target.value)}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                                    onChange('rentAmount', value);
+                                }
+                            }}
+                            onKeyDown={(e) => {
+                                if (!/[0-9.]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                    e.preventDefault();
+                                }
+                            }}
                             className="text-right h-12 "
                             dir="rtl"
                         />
@@ -82,7 +102,17 @@ export default function FinancialStatusForm({
                             type="text"
                             placeholder="300.50"
                             value={data.electricityAvg}
-                            onChange={(e) => onChange('electricityAvg', e.target.value)}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                                    onChange('electricityAvg', value);
+                                }
+                            }}
+                            onKeyDown={(e) => {
+                                if (!/[0-9.]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                    e.preventDefault();
+                                }
+                            }}
                             className="text-right h-12 "
                             dir="rtl"
                         />

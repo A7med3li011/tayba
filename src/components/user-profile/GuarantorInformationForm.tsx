@@ -26,6 +26,15 @@ interface GuarantorData {
     city: string;
     backupName: string;
     backupPhone: string;
+    jobTitle: string;
+    totalSalary: string;
+    jobStartDate: string;
+    employer: string;
+    employerAddress: string;
+    directManagerName: string;
+    directManagerJobTitle: string;
+    hasActiveLoan: boolean;
+    remainingLoanAmount: string;
     signatureFile: File | null;
     nationalAddressFile: File | null;
     validIdFile: File | null;
@@ -35,7 +44,7 @@ interface GuarantorData {
 
 interface GuarantorInformationFormProps {
     data: GuarantorData;  // All data in one object
-    onChange: (field: keyof GuarantorData, value: string | File | null) => void;  // Single change handler
+    onChange: (field: keyof GuarantorData, value: string | boolean | File | null) => void;  // Single change handler
     countries: Country[];
     guarantorTermsChecked: boolean;
     onGuarantorTermsChange: () => void;
@@ -83,7 +92,17 @@ export default function GuarantorInformationForm({
                             type="tel"
                             placeholder="+966509876543"
                             value={data.phone}
-                            onChange={(e) => onChange('phone', e.target.value)}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === '' || /^[0-9+\-\s()]*$/.test(value)) {
+                                    onChange('phone', value);
+                                }
+                            }}
+                            onKeyDown={(e) => {
+                                if (!/[0-9+\-\s()]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                    e.preventDefault();
+                                }
+                            }}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
                         />
                     </div>
@@ -137,7 +156,17 @@ export default function GuarantorInformationForm({
                             type="text"
                             placeholder="9876543210987"
                             value={data.nationalId}
-                            onChange={(e) => onChange('nationalId', e.target.value)}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === '' || /^\d*$/.test(value)) {
+                                    onChange('nationalId', value);
+                                }
+                            }}
+                            onKeyDown={(e) => {
+                                if (!/[0-9]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                    e.preventDefault();
+                                }
+                            }}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
                         />
                     </div>
@@ -202,7 +231,17 @@ export default function GuarantorInformationForm({
                             type="tel"
                             placeholder="+966118765432"
                             value={data.workPhone}
-                            onChange={(e) => onChange('workPhone', e.target.value)}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === '' || /^[0-9+\-\s()]*$/.test(value)) {
+                                    onChange('workPhone', value);
+                                }
+                            }}
+                            onKeyDown={(e) => {
+                                if (!/[0-9+\-\s()]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                    e.preventDefault();
+                                }
+                            }}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
                         />
                     </div>
@@ -221,6 +260,186 @@ export default function GuarantorInformationForm({
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
                         />
                     </div>
+
+                    {/* Job Title */}
+                    <div className="space-y-2">
+                        <Label htmlFor="guarantorJobTitle" className="block text-gray-600 font-medium">
+                            المسمى الوظيفي للكفيل
+                        </Label>
+                        <Input
+                            id="guarantorJobTitle"
+                            type="text"
+                            placeholder="ادخال"
+                            value={data.jobTitle}
+                            onChange={(e) => onChange('jobTitle', e.target.value)}
+                            className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                        />
+                    </div>
+
+                    {/* Total Salary */}
+                    <div className="space-y-2">
+                        <Label htmlFor="guarantorTotalSalary" className="block text-gray-600 font-medium">
+                            اجمالي الراتب
+                        </Label>
+                        <Input
+                            id="guarantorTotalSalary"
+                            type="text"
+                            placeholder="ادخال"
+                            value={data.totalSalary}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                                    onChange('totalSalary', value);
+                                }
+                            }}
+                            onKeyDown={(e) => {
+                                if (!/[0-9.]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                    e.preventDefault();
+                                }
+                            }}
+                            className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                        />
+                    </div>
+
+                    {/* Job Start Date */}
+                    <div className="space-y-2">
+                        <Label htmlFor="guarantorJobStartDate" className="block text-gray-600 font-medium">
+                            تاريخ مباشرة الوظيفة
+                        </Label>
+                        <Input
+                            id="guarantorJobStartDate"
+                            type="date"
+                            placeholder="YYYY-MM-DD"
+                            value={data.jobStartDate}
+                            onChange={(e) => onChange('jobStartDate', e.target.value)}
+                            className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                        />
+                    </div>
+
+                    {/* Employer */}
+                    <div className="space-y-2">
+                        <Label htmlFor="guarantorEmployer" className="block text-gray-600 font-medium">
+                            جهة العمل
+                        </Label>
+                        <Input
+                            id="guarantorEmployer"
+                            type="text"
+                            placeholder="ادخال"
+                            value={data.employer}
+                            onChange={(e) => onChange('employer', e.target.value)}
+                            className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                        />
+                    </div>
+
+                    {/* Employer Address */}
+                    <div className="space-y-2">
+                        <Label htmlFor="guarantorEmployerAddress" className="block text-gray-600 font-medium">
+                            عنوان جهة العمل
+                        </Label>
+                        <Input
+                            id="guarantorEmployerAddress"
+                            type="text"
+                            placeholder="ادخال"
+                            value={data.employerAddress}
+                            onChange={(e) => onChange('employerAddress', e.target.value)}
+                            className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                        />
+                    </div>
+
+                    {/* Direct Manager Name */}
+                    <div className="space-y-2">
+                        <Label htmlFor="guarantorDirectManagerName" className="block text-gray-600 font-medium">
+                            اسم المدير المباشر
+                        </Label>
+                        <Input
+                            id="guarantorDirectManagerName"
+                            type="text"
+                            placeholder="ادخال"
+                            value={data.directManagerName}
+                            onChange={(e) => onChange('directManagerName', e.target.value)}
+                            className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                        />
+                    </div>
+
+                    {/* Direct Manager Job Title */}
+                    <div className="space-y-2">
+                        <Label htmlFor="guarantorDirectManagerJobTitle" className="block text-gray-600 font-medium">
+                            المسمى الوظيفي للمدير المباشر
+                        </Label>
+                        <Input
+                            id="guarantorDirectManagerJobTitle"
+                            type="text"
+                            placeholder="ادخال"
+                            value={data.directManagerJobTitle}
+                            onChange={(e) => onChange('directManagerJobTitle', e.target.value)}
+                            className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                        />
+                    </div>
+
+                    {/* Active Loan Question */}
+                    <div className="space-y-2 col-span-2">
+                        <Label className="block text-gray-700 font-bold mb-3">
+                            هل الكفيل لديه قرض قائم في الوقف؟
+                        </Label>
+                        <div className="flex items-center gap-6">
+                            <div className="flex items-center gap-2">
+                                <input
+                                    type="radio"
+                                    id="guarantorHasActiveLoanYes"
+                                    name="guarantorHasActiveLoan"
+                                    checked={data.hasActiveLoan === true}
+                                    onChange={() => onChange('hasActiveLoan', true)}
+                                    className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                />
+                                <Label htmlFor="guarantorHasActiveLoanYes" className="text-gray-700 cursor-pointer">
+                                    نعم
+                                </Label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <input
+                                    type="radio"
+                                    id="guarantorHasActiveLoanNo"
+                                    name="guarantorHasActiveLoan"
+                                    checked={data.hasActiveLoan === false}
+                                    onChange={() => {
+                                        onChange('hasActiveLoan', false);
+                                        onChange('remainingLoanAmount', '');
+                                    }}
+                                    className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                />
+                                <Label htmlFor="guarantorHasActiveLoanNo" className="text-gray-700 cursor-pointer">
+                                    لا
+                                </Label>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Conditional: If Active Loan - Ask for Remaining Amount */}
+                    {data.hasActiveLoan && (
+                        <div className="space-y-2 col-span-2">
+                            <Label htmlFor="guarantorRemainingLoanAmount" className="block text-gray-700 font-bold">
+                                فكم هو المبلغ المتبقي؟
+                            </Label>
+                            <Input
+                                id="guarantorRemainingLoanAmount"
+                                type="text"
+                                placeholder="ادخال المبلغ المتبقي"
+                                value={data.remainingLoanAmount}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                                        onChange('remainingLoanAmount', value);
+                                    }
+                                }}
+                                onKeyDown={(e) => {
+                                    if (!/[0-9.]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                        e.preventDefault();
+                                    }
+                                }}
+                                className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                            />
+                        </div>
+                    )}
 
                     {/* Contact Person */}
                     <div className="space-y-2">
@@ -247,7 +466,17 @@ export default function GuarantorInformationForm({
                             type="tel"
                             placeholder="+966506666666"
                             value={data.backupPhone}
-                            onChange={(e) => onChange('backupPhone', e.target.value)}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === '' || /^[0-9+\-\s()]*$/.test(value)) {
+                                    onChange('backupPhone', value);
+                                }
+                            }}
+                            onKeyDown={(e) => {
+                                if (!/[0-9+\-\s()]/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(e.key)) {
+                                    e.preventDefault();
+                                }
+                            }}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
                         />
                     </div>
