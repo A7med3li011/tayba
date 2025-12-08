@@ -363,6 +363,11 @@
     }
   },
   "auth": {
+    "layout": {
+      "headline": "Good Financing..",
+      "headlineHighlight": "Without Interest",
+      "description": "We offer you interest-free good loans, compliant with Islamic Sharia principles. We believe that financing should be a means to empower individuals and communities, not a burden that weighs them down."
+    },
     "login": {
       "title": "Welcome Back!",
       "email": "Email",
@@ -660,6 +665,7 @@
     },
     "guarantorInfo": {
       "title": "Guarantor Information",
+      "importantAttachments": "Important Attachments",
       "name": "Name",
       "namePlaceholder": "Mohammed Ahmed Mohammed",
       "phone": "Mobile Number",
@@ -701,7 +707,8 @@
       "nationalAddressImage": "Attach National Address Image",
       "validId": "Valid ID",
       "incomeProof": "Proof of Income",
-      "creditReport": "Simah Report"
+      "creditReport": "Simah Report",
+      "guarantorTerms": "I, the guarantor, acknowledge the accuracy of all the information written above and bear full responsibility in case of contrary evidence."
     }
   }
 }
