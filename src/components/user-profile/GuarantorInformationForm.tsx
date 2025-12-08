@@ -4,6 +4,7 @@ import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { CalendarIcon, ChevronDown } from 'lucide-react';
 import FileUploadField from './FileUploadField';
+import { useTranslations } from 'next-intl';
 
 interface Country {
     id: number;
@@ -57,12 +58,14 @@ export default function GuarantorInformationForm({
     guarantorTermsChecked,
     onGuarantorTermsChange
 }: GuarantorInformationFormProps) {
+    const t = useTranslations('loanRequestForm.guarantorInfo');
+    const tc = useTranslations('common');
 
     return (
         <Card className="w-full bg-gray-50 border-0 shadow-none">
             <CardHeader className="p-0">
                 <CardTitle className="text-primary text-xl font-bold bg-[#D0D5DD52] px-6 py-3 rounded-xl">
-                    بيانات الكفيل
+                    {t('title')}
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -70,12 +73,12 @@ export default function GuarantorInformationForm({
                     {/* Name */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorName" className="block text-gray-600 font-medium">
-                            الاسم
+                            {t('name')}
                         </Label>
                         <Input
                             id="guarantorName"
                             type="text"
-                            placeholder="محمد أحمد محمد"
+                            placeholder={t('namePlaceholder')}
                             value={data.name}
                             onChange={(e) => onChange('name', e.target.value)}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -85,12 +88,12 @@ export default function GuarantorInformationForm({
                     {/* Mobile Number */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorPhone" className="block text-gray-600 font-medium">
-                            رقم الجوال
+                            {t('phone')}
                         </Label>
                         <Input
                             id="guarantorPhone"
                             type="tel"
-                            placeholder="+966509876543"
+                            placeholder={t('phonePlaceholder')}
                             value={data.phone}
                             onChange={(e) => {
                                 const value = e.target.value;
@@ -110,12 +113,12 @@ export default function GuarantorInformationForm({
                     {/* Email */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorEmail" className="block text-gray-600 font-medium">
-                            البريد الإلكتروني
+                            {t('email')}
                         </Label>
                         <Input
                             id="guarantorEmail"
                             type="email"
-                            placeholder="mohammed@example.com"
+                            placeholder={t('emailPlaceholder')}
                             value={data.email}
                             onChange={(e) => onChange('email', e.target.value)}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -125,7 +128,7 @@ export default function GuarantorInformationForm({
                     {/* Nationality */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorNationality" className="block text-gray-600 font-medium">
-                            الجنسية
+                            {t('nationality')}
                         </Label>
                         <div className="relative">
                             <select
@@ -134,7 +137,7 @@ export default function GuarantorInformationForm({
                                 onChange={(e) => onChange('nationalityId', e.target.value)}
                                 className="h-12 w-full rounded-lg border border-gray-300 bg-white px-3 appearance-none cursor-pointer text-gray-600"
                             >
-                                <option value="اختيار">اختيار</option>
+                                <option value="اختيار">{tc('select')}</option>
                                 {countries.map((c: Country) => (
                                     <option key={c.id} value={String(c.id)}>{c.name}</option>
                                 ))}
@@ -149,12 +152,12 @@ export default function GuarantorInformationForm({
                     {/* ID Number */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorIdNumber" className="block text-gray-600 font-medium">
-                            رقم الهوية
+                            {t('nationalId')}
                         </Label>
                         <Input
                             id="guarantorIdNumber"
                             type="text"
-                            placeholder="9876543210987"
+                            placeholder={t('nationalIdPlaceholder')}
                             value={data.nationalId}
                             onChange={(e) => {
                                 const value = e.target.value;
@@ -174,7 +177,7 @@ export default function GuarantorInformationForm({
                     {/* Expiration Date */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorExpirationDate" className="block text-gray-600 font-medium">
-                            تاريخ الانتهاء
+                            {t('idExpiryDate')}
                         </Label>
                         <div className="relative">
                             <Input
@@ -192,12 +195,12 @@ export default function GuarantorInformationForm({
                     {/* City */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorCity" className="block text-gray-600 font-medium">
-                            المدينة
+                            {t('city')}
                         </Label>
                         <Input
                             id="guarantorCity"
                             type="text"
-                            placeholder="الرياض"
+                            placeholder={t('cityPlaceholder')}
                             value={data.city}
                             onChange={(e) => onChange('city', e.target.value)}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -207,12 +210,12 @@ export default function GuarantorInformationForm({
                     {/* Address */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorAddress" className="block text-gray-600 font-medium">
-                            عنوان السكن
+                            {t('street')}
                         </Label>
                         <Input
                             id="guarantorAddress"
                             type="text"
-                            placeholder="شارع العليا، حي السفارات"
+                            placeholder={t('streetPlaceholder')}
                             value={data.street}
                             onChange={(e) => onChange('street', e.target.value)}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -224,12 +227,12 @@ export default function GuarantorInformationForm({
                     {/* Work Mobile */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorWorkMobile" className="block text-gray-600 font-medium">
-                            جوال العمل
+                            {t('workPhone')}
                         </Label>
                         <Input
                             id="guarantorWorkMobile"
                             type="tel"
-                            placeholder="+966118765432"
+                            placeholder={t('workPhonePlaceholder')}
                             value={data.workPhone}
                             onChange={(e) => {
                                 const value = e.target.value;
@@ -249,12 +252,12 @@ export default function GuarantorInformationForm({
                     {/* Work Title */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorWorkTitle" className="block text-gray-600 font-medium">
-                            عنوان العمل
+                            {t('workAddress')}
                         </Label>
                         <Input
                             id="guarantorWorkTitle"
                             type="text"
-                            placeholder="وزارة التعليم"
+                            placeholder={t('workAddressPlaceholder')}
                             value={data.workAddress}
                             onChange={(e) => onChange('workAddress', e.target.value)}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -264,12 +267,12 @@ export default function GuarantorInformationForm({
                     {/* Job Title */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorJobTitle" className="block text-gray-600 font-medium">
-                            المسمى الوظيفي للكفيل
+                            {t('jobTitle')}
                         </Label>
                         <Input
                             id="guarantorJobTitle"
                             type="text"
-                            placeholder="ادخال"
+                            placeholder={t('jobTitlePlaceholder')}
                             value={data.jobTitle}
                             onChange={(e) => onChange('jobTitle', e.target.value)}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -279,12 +282,12 @@ export default function GuarantorInformationForm({
                     {/* Total Salary */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorTotalSalary" className="block text-gray-600 font-medium">
-                            اجمالي الراتب
+                            {t('totalSalary')}
                         </Label>
                         <Input
                             id="guarantorTotalSalary"
                             type="text"
-                            placeholder="ادخال"
+                            placeholder={tc('input')}
                             value={data.totalSalary}
                             onChange={(e) => {
                                 const value = e.target.value;
@@ -304,7 +307,7 @@ export default function GuarantorInformationForm({
                     {/* Job Start Date */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorJobStartDate" className="block text-gray-600 font-medium">
-                            تاريخ مباشرة الوظيفة
+                            {t('jobStartDate')}
                         </Label>
                         <Input
                             id="guarantorJobStartDate"
@@ -319,12 +322,12 @@ export default function GuarantorInformationForm({
                     {/* Employer */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorEmployer" className="block text-gray-600 font-medium">
-                            جهة العمل
+                            {t('employer')}
                         </Label>
                         <Input
                             id="guarantorEmployer"
                             type="text"
-                            placeholder="ادخال"
+                            placeholder={t('employerPlaceholder')}
                             value={data.employer}
                             onChange={(e) => onChange('employer', e.target.value)}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -334,12 +337,12 @@ export default function GuarantorInformationForm({
                     {/* Employer Address */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorEmployerAddress" className="block text-gray-600 font-medium">
-                            عنوان جهة العمل
+                            {t('employerAddress')}
                         </Label>
                         <Input
                             id="guarantorEmployerAddress"
                             type="text"
-                            placeholder="ادخال"
+                            placeholder={t('employerAddressPlaceholder')}
                             value={data.employerAddress}
                             onChange={(e) => onChange('employerAddress', e.target.value)}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -349,12 +352,12 @@ export default function GuarantorInformationForm({
                     {/* Direct Manager Name */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorDirectManagerName" className="block text-gray-600 font-medium">
-                            اسم المدير المباشر
+                            {t('directManagerName')}
                         </Label>
                         <Input
                             id="guarantorDirectManagerName"
                             type="text"
-                            placeholder="ادخال"
+                            placeholder={t('directManagerNamePlaceholder')}
                             value={data.directManagerName}
                             onChange={(e) => onChange('directManagerName', e.target.value)}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -364,12 +367,12 @@ export default function GuarantorInformationForm({
                     {/* Direct Manager Job Title */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorDirectManagerJobTitle" className="block text-gray-600 font-medium">
-                            المسمى الوظيفي للمدير المباشر
+                            {t('directManagerJobTitle')}
                         </Label>
                         <Input
                             id="guarantorDirectManagerJobTitle"
                             type="text"
-                            placeholder="ادخال"
+                            placeholder={t('directManagerJobTitlePlaceholder')}
                             value={data.directManagerJobTitle}
                             onChange={(e) => onChange('directManagerJobTitle', e.target.value)}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -379,7 +382,7 @@ export default function GuarantorInformationForm({
                     {/* Active Loan Question */}
                     <div className="space-y-2 col-span-2">
                         <Label className="block text-gray-700 font-bold mb-3">
-                            هل الكفيل لديه قرض قائم في الوقف؟
+                            {t('hasActiveLoan')}
                         </Label>
                         <div className="flex items-center gap-6">
                             <div className="flex items-center gap-2">
@@ -392,7 +395,7 @@ export default function GuarantorInformationForm({
                                     className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
                                 />
                                 <Label htmlFor="guarantorHasActiveLoanYes" className="text-gray-700 cursor-pointer">
-                                    نعم
+                                    {tc('yes')}
                                 </Label>
                             </div>
                             <div className="flex items-center gap-2">
@@ -408,7 +411,7 @@ export default function GuarantorInformationForm({
                                     className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
                                 />
                                 <Label htmlFor="guarantorHasActiveLoanNo" className="text-gray-700 cursor-pointer">
-                                    لا
+                                    {tc('no')}
                                 </Label>
                             </div>
                         </div>
@@ -418,12 +421,12 @@ export default function GuarantorInformationForm({
                     {data.hasActiveLoan && (
                         <div className="space-y-2 col-span-2">
                             <Label htmlFor="guarantorRemainingLoanAmount" className="block text-gray-700 font-bold">
-                                فكم هو المبلغ المتبقي؟
+                                {t('remainingLoanAmount')}
                             </Label>
                             <Input
                                 id="guarantorRemainingLoanAmount"
                                 type="text"
-                                placeholder="ادخال المبلغ المتبقي"
+                                placeholder={t('remainingLoanPlaceholder')}
                                 value={data.remainingLoanAmount}
                                 onChange={(e) => {
                                     const value = e.target.value;
@@ -444,12 +447,12 @@ export default function GuarantorInformationForm({
                     {/* Contact Person */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorContactPerson" className="block text-gray-600 font-medium">
-                            اسم شخص آخر يمكن الاتصال به
+                            {t('backupName')}
                         </Label>
                         <Input
                             id="guarantorContactPerson"
                             type="text"
-                            placeholder="فاطمة محمد السعيد"
+                            placeholder={t('backupNamePlaceholder')}
                             value={data.backupName}
                             onChange={(e) => onChange('backupName', e.target.value)}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -459,12 +462,12 @@ export default function GuarantorInformationForm({
                     {/* Mobile Number (Another) */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorContactMobile" className="block text-gray-600 font-medium">
-                            رقم جوال شخص آخر يمكن الاتصال به
+                            {t('backupPhone')}
                         </Label>
                         <Input
                             id="guarantorContactMobile"
                             type="tel"
-                            placeholder="+966506666666"
+                            placeholder={t('backupPhonePlaceholder')}
                             value={data.backupPhone}
                             onChange={(e) => {
                                 const value = e.target.value;
@@ -484,7 +487,7 @@ export default function GuarantorInformationForm({
                     {/* Signature Upload */}
                     <FileUploadField
                         id="guarantorSignature"
-                        label="التوقيع"
+                        label={t('signature')}
                         selectedFile={data.signatureFile}
                         onChange={(e) => {
                             const file = e.target.files?.[0];
@@ -497,7 +500,7 @@ export default function GuarantorInformationForm({
                 <div>
                     <div className="pb-4 mt-10">
                         <h2 className="text-[#919499] text-2xl font-bold text-right border-b border-gray-200 pb-4 mb-10">
-                            مرفقات هامة
+                            {t('importantAttachments')}
                         </h2>
                     </div>
                     <div className="space-y-8 mb-10">
@@ -505,7 +508,7 @@ export default function GuarantorInformationForm({
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <FileUploadField
                                 id="guarantorNationalAddress"
-                                label="إرفاق صورة العنوان الوطني"
+                                label={t('nationalAddressImage')}
                                 selectedFile={data.nationalAddressFile}
                                 onChange={(e) => {
                                     const file = e.target.files?.[0];
@@ -514,7 +517,7 @@ export default function GuarantorInformationForm({
                             />
                             <FileUploadField
                                 id="guarantorValidId"
-                                label="هوية سارية الصلاحية"
+                                label={t('validId')}
                                 selectedFile={data.validIdFile}
                                 onChange={(e) => {
                                     const file = e.target.files?.[0];
@@ -527,7 +530,7 @@ export default function GuarantorInformationForm({
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <FileUploadField
                                 id="guarantorIncomeProof"
-                                label="إرفاق تعريف حديث للراتب للكفيل"
+                                label={t('incomeProof')}
                                 selectedFile={data.incomeProofFile}
                                 onChange={(e) => {
                                     const file = e.target.files?.[0];
@@ -536,7 +539,7 @@ export default function GuarantorInformationForm({
                             />
                             <FileUploadField
                                 id="guarantorCreditReport"
-                                label="تقرير حديث من (سمة) للكفيل"
+                                label={t('creditReport')}
                                 selectedFile={data.creditReportFile}
                                 onChange={(e) => {
                                     const file = e.target.files?.[0];
@@ -557,7 +560,8 @@ export default function GuarantorInformationForm({
                         className="mt-1 w-4 h-4 text-green-600 border-2 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
                     />
                     <Label htmlFor="guarantorTerms" className="text-sm text-gray-600 leading-relaxed cursor-pointer">
-                    أقر انا الكفيل الغارم بصحة كامل البيانات المكتوبة اعلاه واحتمل كامل المسؤولية في حال ثبوت خلاف ذلك.                    </Label>
+                        {t('guarantorTerms')}
+                    </Label>
                 </div>
             </CardContent>
         </Card>

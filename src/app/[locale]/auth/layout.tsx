@@ -9,8 +9,10 @@ import rectangle from "@/assets/images/Rectangle37.png";
 import iphoneForgotPassword from "@/assets/images/iphone-forgotPassword.png";
 import iphoneResetPassword from "@/assets/images/iphone-resetPassword.png";
 import bgPattern from "@/assets/images/authPattern.png";
+import { useTranslations } from "next-intl";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+  const t = useTranslations("auth.layout");
   const pathname = usePathname();
   const page = pathname.includes("register")
     ? "register"
@@ -31,14 +33,12 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           <div className="text-start max-w-md">
             {/* Main Headline */}
             <h2 className="text-4xl font-bold mb-6">
-              تمويل خير.. <span className="text-secondary">بلا فوائد</span>
+              {t("headline")} <span className="text-secondary">{t("headlineHighlight")}</span>
             </h2>
 
             {/* Description */}
             <p className="text-lg leading-relaxed mb-12 opacity-90 font-bold">
-              نقدم لك قروضًا حسنة بدون فوائد ربوية، متوافقة مع أحكام الشريعة
-              الإسلامية. نؤمن بأن التمويل يجب أن يكون وسيلة لتمكين الأفراد
-              والمجتمعات، لا عبئًا يثقل كاهلهم.
+              {t("description")}
             </p>
 
             {/* App Store Badges */}

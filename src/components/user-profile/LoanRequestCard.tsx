@@ -431,7 +431,7 @@ function LoanRequestForm() {
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="email" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    البريد الالكتروني
+                                    {t('fields.email')}
                                 </Label>
                                 <Input
                                     id="email"
@@ -443,7 +443,7 @@ function LoanRequestForm() {
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="phone" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    رقم الهاتف
+                                    {t('fields.phone')}
                                 </Label>
                                 <Input
                                     id="phone"
@@ -455,7 +455,7 @@ function LoanRequestForm() {
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="nationalId" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    رقم الهوية الوطنية
+                                    {t('fields.nationalId')}
                                 </Label>
                                 <Input
                                     id="nationalId"
@@ -467,7 +467,7 @@ function LoanRequestForm() {
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="idExpiryDate" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    تاريخ الانتهاء
+                                    {t('fields.idExpiryDate')}
                                 </Label>
                                 <Input
                                     id="idExpiryDate"
@@ -482,12 +482,12 @@ function LoanRequestForm() {
                             {/* City */}
                             <div className="space-y-2">
                                 <Label htmlFor="city" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    المدينة
+                                    {t('fields.city')}
                                 </Label>
                                 <Input
                                     id="city"
                                     type="text"
-                                    placeholder="ادخال"
+                                    placeholder={t('placeholders.input')}
                                     value={formData.city}
                                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                                     className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
@@ -496,12 +496,12 @@ function LoanRequestForm() {
                             {/* Address */}
                             <div className="space-y-2">
                                 <Label htmlFor="address" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    عنوان السكن
+                                    {t('fields.address')}
                                 </Label>
                                 <Input
                                     id="address"
                                     type="text"
-                                    placeholder="ادخال"
+                                    placeholder={t('placeholders.input')}
                                     value={formData.address}
                                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                                     className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
@@ -511,12 +511,12 @@ function LoanRequestForm() {
                             {/* Work Title */}
                             <div className="space-y-2">
                                 <Label htmlFor="workTitle" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    عنوان العمل
+                                    {t('fields.workTitle')}
                                 </Label>
                                 <Input
                                     id="workTitle"
                                     type="text"
-                                    placeholder="ادخال"
+                                    placeholder={t('placeholders.input')}
                                     value={formData.workTitle}
                                     onChange={(e) => setFormData({ ...formData, workTitle: e.target.value })}
                                     className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
@@ -526,12 +526,12 @@ function LoanRequestForm() {
                             {/* Work Phone */}
                             <div className="space-y-2">
                                 <Label htmlFor="workPhone" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    جوال العمل
+                                    {t('fields.workPhone')}
                                 </Label>
                                 <Input
                                     id="workPhone"
                                     type="tel"
-                                    placeholder="ادخال"
+                                    placeholder={t('placeholders.input')}
                                     value={formData.workPhone}
                                     onChange={(e) => {
                                         const value = e.target.value;
@@ -551,12 +551,12 @@ function LoanRequestForm() {
                             {/* Job Title */}
                             <div className="space-y-2">
                                 <Label htmlFor="jobTitle" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    المسمى الوظيفي لطالب القرض
+                                    {t('fields.jobTitle')}
                                 </Label>
                                 <Input
                                     id="jobTitle"
                                     type="text"
-                                    placeholder="ادخال"
+                                    placeholder={t('placeholders.input')}
                                     value={formData.jobTitle}
                                     onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
                                     className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
@@ -566,12 +566,12 @@ function LoanRequestForm() {
                             {/* Total Salary */}
                             <div className="space-y-2">
                                 <Label htmlFor="totalSalary" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    اجمالي الراتب
+                                    {t('fields.totalSalary')}
                                 </Label>
                                 <Input
                                     id="totalSalary"
                                     type="text"
-                                    placeholder="ادخال"
+                                    placeholder={t('placeholders.input')}
                                     value={formData.totalSalary}
                                     onChange={(e) => {
                                         const value = e.target.value;
@@ -591,7 +591,7 @@ function LoanRequestForm() {
                             {/* Job Start Date */}
                             <div className="space-y-2">
                                 <Label htmlFor="jobStartDate" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    تاريخ مباشرة الوظيفة
+                                    {t('fields.jobStartDate')}
                                 </Label>
                                 <Input
                                     id="jobStartDate"
@@ -606,12 +606,12 @@ function LoanRequestForm() {
                             {/* Employer */}
                             <div className="space-y-2">
                                 <Label htmlFor="employer" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    جهة العمل
+                                    {t('fields.employer')}
                                 </Label>
                                 <Input
                                     id="employer"
                                     type="text"
-                                    placeholder="ادخال"
+                                    placeholder={t('placeholders.input')}
                                     value={formData.employer}
                                     onChange={(e) => setFormData({ ...formData, employer: e.target.value })}
                                     className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
@@ -621,12 +621,12 @@ function LoanRequestForm() {
                             {/* Employer Address */}
                             <div className="space-y-2">
                                 <Label htmlFor="employerAddress" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    عنوان جهة العمل
+                                    {t('fields.employerAddress')}
                                 </Label>
                                 <Input
                                     id="employerAddress"
                                     type="text"
-                                    placeholder="ادخال"
+                                    placeholder={t('placeholders.input')}
                                     value={formData.employerAddress}
                                     onChange={(e) => setFormData({ ...formData, employerAddress: e.target.value })}
                                     className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
@@ -636,12 +636,12 @@ function LoanRequestForm() {
                             {/* Direct Manager Name */}
                             <div className="space-y-2">
                                 <Label htmlFor="directManagerName" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    اسم المدير المباشر
+                                    {t('fields.directManagerName')}
                                 </Label>
                                 <Input
                                     id="directManagerName"
                                     type="text"
-                                    placeholder="ادخال"
+                                    placeholder={t('placeholders.input')}
                                     value={formData.directManagerName}
                                     onChange={(e) => setFormData({ ...formData, directManagerName: e.target.value })}
                                     className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
@@ -651,12 +651,12 @@ function LoanRequestForm() {
                             {/* Direct Manager Job Title */}
                             <div className="space-y-2">
                                 <Label htmlFor="directManagerJobTitle" className="block text-gray-600 font-bold text-sm sm:text-base">
-                                    المسمى الوظيفي للمدير المباشر
+                                    {t('fields.directManagerJobTitle')}
                                 </Label>
                                 <Input
                                     id="directManagerJobTitle"
                                     type="text"
-                                    placeholder="ادخال"
+                                    placeholder={t('placeholders.input')}
                                     value={formData.directManagerJobTitle}
                                     onChange={(e) => setFormData({ ...formData, directManagerJobTitle: e.target.value })}
                                     className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
@@ -666,7 +666,7 @@ function LoanRequestForm() {
                             {/* Previous Loan Question */}
                             <div className="space-y-2 col-span-2">
                                 <Label className="block text-gray-700 font-bold text-sm sm:text-base mb-3">
-                                    هل سبق ان حصلت علي قرض من الوقف؟
+                                    {t('questions.hasPreviousLoan')}
                                 </Label>
                                 <div className="flex items-center gap-6">
                                     <div className="flex items-center gap-2">
@@ -679,7 +679,7 @@ function LoanRequestForm() {
                                             className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
                                         />
                                         <Label htmlFor="hasPreviousLoanYes" className="text-gray-700 cursor-pointer text-sm sm:text-base">
-                                            نعم
+                                            {tc('yes')}
                                         </Label>
                                     </div>
                                     <div className="flex items-center gap-2">
@@ -692,7 +692,7 @@ function LoanRequestForm() {
                                             className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
                                         />
                                         <Label htmlFor="hasPreviousLoanNo" className="text-gray-700 cursor-pointer text-sm sm:text-base">
-                                            لا
+                                            {tc('no')}
                                         </Label>
                                     </div>
                                 </div>
@@ -702,7 +702,7 @@ function LoanRequestForm() {
                             {formData.hasPreviousLoan && (
                                 <div className="space-y-2 col-span-2">
                                     <Label className="block text-gray-700 font-bold text-sm sm:text-base mb-3">
-                                        هل تم اكمال سداد القرض؟
+                                        {t('questions.isPreviousLoanPaid')}
                                     </Label>
                                     <div className="flex items-center gap-6 pl-8">
                                         <div className="flex items-center gap-2">
@@ -715,7 +715,7 @@ function LoanRequestForm() {
                                                 className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
                                             />
                                             <Label htmlFor="isPreviousLoanPaidYes" className="text-gray-700 cursor-pointer text-sm sm:text-base">
-                                                نعم
+                                                {tc('yes')}
                                             </Label>
                                         </div>
                                         <div className="flex items-center gap-2">
@@ -728,7 +728,7 @@ function LoanRequestForm() {
                                                 className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
                                             />
                                             <Label htmlFor="isPreviousLoanPaidNo" className="text-gray-700 cursor-pointer text-sm sm:text-base">
-                                                لا
+                                                {tc('no')}
                                             </Label>
                                         </div>
                                     </div>
@@ -738,7 +738,7 @@ function LoanRequestForm() {
                             {/* Current Guarantor Question */}
                             <div className="space-y-2 col-span-2">
                                 <Label className="block text-gray-700 font-bold text-sm sm:text-base mb-3">
-                                    هل طالب القرض كفيل حاليا في الوقف؟
+                                    {t('questions.isCurrentGuarantor')}
                                 </Label>
                                 <div className="flex items-center gap-6">
                                     <div className="flex items-center gap-2">
@@ -751,7 +751,7 @@ function LoanRequestForm() {
                                             className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
                                         />
                                         <Label htmlFor="isCurrentGuarantorYes" className="text-gray-700 cursor-pointer text-sm sm:text-base">
-                                            نعم
+                                            {tc('yes')}
                                         </Label>
                                     </div>
                                     <div className="flex items-center gap-2">
@@ -764,7 +764,7 @@ function LoanRequestForm() {
                                             className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
                                         />
                                         <Label htmlFor="isCurrentGuarantorNo" className="text-gray-700 cursor-pointer text-sm sm:text-base">
-                                            لا
+                                            {tc('no')}
                                         </Label>
                                     </div>
                                 </div>
@@ -774,12 +774,12 @@ function LoanRequestForm() {
                             {formData.isCurrentGuarantor && (
                                 <div className="space-y-2 col-span-2">
                                     <Label htmlFor="guaranteedBorrowerName" className="block text-gray-700 font-bold text-sm sm:text-base">
-                                        ما اسم المقترض؟
+                                        {t('questions.guaranteedBorrowerName')}
                                     </Label>
                                     <Input
                                         id="guaranteedBorrowerName"
                                         type="text"
-                                        placeholder="ادخال اسم المقترض"
+                                        placeholder={t('placeholders.borrowerNameInput')}
                                         value={formData.guaranteedBorrowerName}
                                         onChange={(e) => setFormData({ ...formData, guaranteedBorrowerName: e.target.value })}
                                         className="h-10 sm:h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400 text-sm sm:text-base"
@@ -790,7 +790,7 @@ function LoanRequestForm() {
                             {/* Monthly Installments Question */}
                             <div className="space-y-2 col-span-2">
                                 <Label className="block text-gray-700 font-bold text-sm sm:text-base mb-3">
-                                    هل المقترض لديه اقساط شهرية لجهات اخرى؟
+                                    {t('questions.hasMonthlyInstallments')}
                                 </Label>
                                 <div className="flex items-center gap-6">
                                     <div className="flex items-center gap-2">
@@ -803,7 +803,7 @@ function LoanRequestForm() {
                                             className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
                                         />
                                         <Label htmlFor="hasMonthlyInstallmentsYes" className="text-gray-700 cursor-pointer text-sm sm:text-base">
-                                            نعم
+                                            {tc('yes')}
                                         </Label>
                                     </div>
                                     <div className="flex items-center gap-2">
@@ -816,7 +816,7 @@ function LoanRequestForm() {
                                             className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
                                         />
                                         <Label htmlFor="hasMonthlyInstallmentsNo" className="text-gray-700 cursor-pointer text-sm sm:text-base">
-                                            لا
+                                            {tc('no')}
                                         </Label>
                                     </div>
                                 </div>
@@ -826,12 +826,12 @@ function LoanRequestForm() {
                             {formData.hasMonthlyInstallments && (
                                 <div className="space-y-2 col-span-2">
                                     <Label htmlFor="totalMonthlyInstallments" className="block text-gray-700 font-bold text-sm sm:text-base">
-                                        ما هو اجمالي الاقساط الشهرية؟
+                                        {t('questions.totalMonthlyInstallments')}
                                     </Label>
                                     <Input
                                         id="totalMonthlyInstallments"
                                         type="text"
-                                        placeholder="ادخال اجمالي الاقساط الشهرية"
+                                        placeholder={t('placeholders.monthlyInstallmentsInput')}
                                         value={formData.totalMonthlyInstallments}
                                         onChange={(e) => {
                                             const value = e.target.value;
@@ -852,7 +852,7 @@ function LoanRequestForm() {
                             {/* Additional Income Question */}
                             <div className="space-y-2 col-span-2">
                                 <Label className="block text-gray-700 font-bold text-sm sm:text-base mb-3">
-                                    هل طالب القرض لديه مصادر دخل اضافية؟
+                                    {t('questions.hasAdditionalIncome')}
                                 </Label>
                                 <div className="flex items-center gap-6">
                                     <div className="flex items-center gap-2">
@@ -865,7 +865,7 @@ function LoanRequestForm() {
                                             className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
                                         />
                                         <Label htmlFor="hasAdditionalIncomeYes" className="text-gray-700 cursor-pointer text-sm sm:text-base">
-                                            نعم
+                                            {tc('yes')}
                                         </Label>
                                     </div>
                                     <div className="flex items-center gap-2">
@@ -878,7 +878,7 @@ function LoanRequestForm() {
                                             className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
                                         />
                                         <Label htmlFor="hasAdditionalIncomeNo" className="text-gray-700 cursor-pointer text-sm sm:text-base">
-                                            لا
+                                            {tc('no')}
                                         </Label>
                                     </div>
                                 </div>
@@ -888,12 +888,12 @@ function LoanRequestForm() {
                             {formData.hasAdditionalIncome && (
                                 <div className="space-y-2 col-span-2">
                                     <Label htmlFor="totalAdditionalIncome" className="block text-gray-700 font-bold text-sm sm:text-base">
-                                        فكم هو الاجمالي الشهري؟
+                                        {t('questions.totalAdditionalIncome')}
                                     </Label>
                                     <Input
                                         id="totalAdditionalIncome"
                                         type="text"
-                                        placeholder="ادخال الاجمالي الشهري"
+                                        placeholder={t('placeholders.monthlyIncomeInput')}
                                         value={formData.totalAdditionalIncome}
                                         onChange={(e) => {
                                             const value = e.target.value;
@@ -914,12 +914,12 @@ function LoanRequestForm() {
                             {/* Contact Person */}
                             <div className="space-y-2">
                                 <Label htmlFor="contactPerson" className="block text-gray-600 font-bold">
-                                    اسم شخص آخر يمكن الاتصال به
+                                    {t('fields.contactPerson')}
                                 </Label>
                                 <Input
                                     id="contactPerson"
                                     type="text"
-                                    placeholder="محمد أحمد محمد"
+                                    placeholder={t('placeholders.contactPersonName')}
                                     value={formData.contactPerson}
                                     onChange={(e) => setFormData({ ...formData, contactPerson: e.target.value })}
                                     className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -929,12 +929,12 @@ function LoanRequestForm() {
                             {/* Contact Person Phone */}
                             <div className="space-y-2">
                                 <Label htmlFor="contactPersonPhone" className="block text-gray-600 font-bold">
-                                    رقم جوال شخص آخر
+                                    {t('fields.contactPersonPhone')}
                                 </Label>
                                 <Input
                                     id="contactPersonPhone"
                                     type="tel"
-                                    placeholder="966389010"
+                                    placeholder={t('placeholders.contactPersonPhone')}
                                     value={formData.contactPersonPhone}
                                     onChange={(e) => {
                                         const value = e.target.value;
@@ -953,7 +953,7 @@ function LoanRequestForm() {
                             {/* Nationality */}
                             <div className="space-y-2">
                                 <Label htmlFor="nationality" className="block text-gray-600 font-bold ">
-                                    الجنسية
+                                    {t('fields.nationality')}
                                 </Label>
                                 <div className="relative">
                                     <select
@@ -962,7 +962,7 @@ function LoanRequestForm() {
                                         onChange={(e) => setFormData({ ...formData, nationality: e.target.value })}
                                         className="h-12 w-full rounded-lg border border-gray-300 bg-white px-3 appearance-none cursor-pointer text-gray-600"
                                     >
-                                        <option value="اختيار">اختيار</option>
+                                        <option value="اختيار">{t('placeholders.select')}</option>
                                         {countries.map((c: Country) => (
                                             <option key={c.id} value={String(c.id)}>{c.name}</option>
                                         ))}
@@ -974,7 +974,7 @@ function LoanRequestForm() {
                             {/* Installment Count */}
                             <div className="space-y-2">
                                 <Label htmlFor="installmentCount" className="block text-gray-600 font-bold">
-                                    عدد الأقساط
+                                    {t('fields.installmentCount')}
                                 </Label>
                                 <div className="relative">
                                     <select
@@ -983,10 +983,10 @@ function LoanRequestForm() {
                                         onChange={(e) => setFormData({ ...formData, installmentCount: e.target.value })}
                                         className="h-12 w-full rounded-lg border border-gray-300 bg-white px-3 appearance-none cursor-pointer text-gray-600"
                                     >
-                                        <option value="اختيار">اختيار</option>
-                                        <option value="12">12 شهر</option>
-                                        <option value="24">24 شهر</option>
-                                        <option value="36">36 شهر</option>
+                                        <option value="اختيار">{t('placeholders.select')}</option>
+                                        <option value="12">{t('installmentOptions.12months')}</option>
+                                        <option value="24">{t('installmentOptions.24months')}</option>
+                                        <option value="36">{t('installmentOptions.36months')}</option>
                                     </select>
                                     <ChevronDown className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                                 </div>
@@ -995,7 +995,7 @@ function LoanRequestForm() {
                             {/* Loan Amount */}
                             <div className="space-y-2">
                                 <Label htmlFor="loanAmount" className="block text-gray-600 font-bold">
-                                    مبلغ القرض
+                                    {t('fields.loanAmount')}
                                 </Label>
                                 <Input
                                     id="loanAmount"
@@ -1019,12 +1019,12 @@ function LoanRequestForm() {
                             {/* Purpose */}
                             <div className="space-y-2">
                                 <Label htmlFor="purpose" className="block text-gray-600 font-bold">
-                                    سبب طلب القرض
+                                    {t('fields.purpose')}
                                 </Label>
                                 <Input
                                     id="purpose"
                                     type="text"
-                                    placeholder="ادخال سبب طلب القرض"
+                                    placeholder={t('placeholders.loanReasonInput')}
                                     value={formData.purpose}
                                     onChange={(e) => setFormData({ ...formData, purpose: e.target.value })}
                                     className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -1034,12 +1034,12 @@ function LoanRequestForm() {
                             {/* Loan Beneficiary */}
                             <div className="space-y-2 col-span-2">
                                 <Label htmlFor="loanBeneficiary" className="block text-gray-600 font-bold">
-                                    من هو (الفرد\الجهة) المستحقة لهذا القرض؟
+                                    {t('fields.loanBeneficiary')}
                                 </Label>
                                 <Input
                                     id="loanBeneficiary"
                                     type="text"
-                                    placeholder="ادخال اسم الفرد أو الجهة المستحقة"
+                                    placeholder={t('placeholders.beneficiaryInput')}
                                     value={formData.loanBeneficiary}
                                     onChange={(e) => setFormData({ ...formData, loanBeneficiary: e.target.value })}
                                     className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
@@ -1059,7 +1059,7 @@ function LoanRequestForm() {
                     <div>
                         <div className="pb-4 mt-10">
                             <h2 className="text-[#919499] text-2xl font-bold text-right border-b border-gray-200 pb-4 mb-10">
-                                مرفقات هامة
+                                {t('importantAttachments')}
                             </h2>
                         </div>
                         <div className="space-y-8 mb-10">
@@ -1067,13 +1067,13 @@ function LoanRequestForm() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <FileUploadField
                                     id="nationalIdCopy"
-                                    label="إرفاق صورة العنوان الوطني"
+                                    label={t('fileUploads.nationalIdCopy')}
                                     selectedFile={files.nationalIdCopy as unknown as File | null}
                                     onChange={(e) => handleFileUpload('nationalIdCopy', e)}
                                 />
                                 <FileUploadField
                                     id="mosqueReceipt"
-                                    label="إرفاق ترخيص إمام المسجد للمقترض (خاص بالرجال)"
+                                    label={t('fileUploads.mosqueReceipt')}
                                     selectedFile={files.mosqueReceipt as unknown as File | null}
                                     onChange={(e) => handleFileUpload('mosqueReceipt', e)}
                                 />
@@ -1083,13 +1083,13 @@ function LoanRequestForm() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <FileUploadField
                                     id="recentReport"
-                                    label="تقرير حديث من (سمة) وموضح به التاريخ"
+                                    label={t('fileUploads.recentReport')}
                                     selectedFile={files.recentReport as unknown as File | null}
                                     onChange={(e) => handleFileUpload('recentReport', e)}
                                 />
                                 <FileUploadField
                                     id="proofStatus"
-                                    label="اثبات حالة"
+                                    label={t('fileUploads.proofStatus')}
                                     selectedFile={files.proofStatus as unknown as File | null}
                                     onChange={(e) => handleFileUpload('proofStatus', e)}
                                 />
@@ -1099,13 +1099,13 @@ function LoanRequestForm() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <FileUploadField
                                     id="validityCard"
-                                    label="هوية سارية الصلاحية"
+                                    label={t('fileUploads.validityCard')}
                                     selectedFile={files.validityCard as unknown as File | null}
                                     onChange={(e) => handleFileUpload('validityCard', e)}
                                 />
                                 <FileUploadField
                                     id="ibanCertificate"
-                                    label="شهادة الآيبان (IBAN)"
+                                    label={t('fileUploads.ibanCertificate')}
                                     selectedFile={files.ibanCertificate as unknown as File | null}
                                     onChange={(e) => handleFileUpload('ibanCertificate', e)}
                                 />
@@ -1115,13 +1115,13 @@ function LoanRequestForm() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 {/* <FileUploadField
                                     id="promissoryNote"
-                                    label="سند لأمر"
+                                    label={t('fileUploads.promissoryNote')}
                                     selectedFile={files.promissoryNote as unknown as File | null}
                                     onChange={(e) => handleFileUpload('promissoryNote', e)}
                                 /> */}
                                 <FileUploadField
                                     id="signature"
-                                    label="التوقيع"
+                                    label={t('fileUploads.signature')}
                                     selectedFile={signatureFile}
                                     onChange={handleSignatureUpload}
                                 />
@@ -1135,7 +1135,7 @@ function LoanRequestForm() {
                             className="mt-1 w-5 h-5 text-green-600 border-2 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
                         />
                         <Label htmlFor="borrowerTerms1" className="text-sm text-gray-700 leading-relaxed text-right cursor-pointer">
-                            أقر انا المقترض بصحة كامل البيانات المكتوبة اعلاه واحتمل كامل المسؤولية في حال ثبوت خلاف ذلك.
+                            {t('terms.borrowerTerms1')}
                         </Label>
                     </div>
                     <div className="flex items-start gap-3 border-gray-200">
@@ -1147,7 +1147,7 @@ function LoanRequestForm() {
                             className="mt-1 w-5 h-5 text-green-600 border-2 border-gray-300 rounded focus:ring-green-500 focus:ring-2"
                         />
                         <Label htmlFor="borrowerTerms2" className="text-sm text-gray-700 leading-relaxed text-right cursor-pointer">
-                            اوافق علي شروط الاقتراض
+                            {t('terms.borrowerTerms2')}
                         </Label>
                     </div>
                         </div>
@@ -1197,7 +1197,7 @@ function LoanRequestForm() {
                         type="submit"
                         disabled={isSubmitting}
                     >
-                        {isSubmitting ? 'جاري الإرسال...' : 'إرسال الطلب'}
+                        {isSubmitting ? t('messages.submitting') : t('messages.submitLoan')}
                     </Button>
                 </form>
             </CardContent>
