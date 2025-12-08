@@ -239,7 +239,7 @@ export default function Register() {
               htmlFor="phone"
               className="text-sm font-bold text-[#919499] block"
             >
-              رقم جوال 1
+              {t("register.phone1")}
             </Label>
             <Input
               dir="rtl"
@@ -261,13 +261,13 @@ export default function Register() {
               htmlFor="phone2"
               className="text-sm font-bold text-[#919499] block"
             >
-              رقم جوال 2
+              {t("register.phone2")}
             </Label>
             <Input
               dir="rtl"
               id="phone2"
               type="tel"
-              placeholder="05xxxxxxxx"
+              placeholder={t("register.phone2Placeholder")}
               className="h-12 placeholder:text-gray-400 placeholder:text-start border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               {...register("phone2")}
               required
@@ -336,7 +336,7 @@ export default function Register() {
               htmlFor="gender"
               className="text-sm font-bold text-[#919499] block"
             >
-              الجنس
+              {t("register.gender")}
             </Label>
             <select
               id="gender"
@@ -344,9 +344,9 @@ export default function Register() {
               {...register("gender")}
               required
             >
-              <option value="">اختيار</option>
-              <option value="male">ذكر</option>
-              <option value="female">أنثى</option>
+              <option value="">{t("register.genderPlaceholder")}</option>
+              <option value="male">{t("register.male")}</option>
+              <option value="female">{t("register.female")}</option>
             </select>
             {errors.gender && (
               <p className="text-red-500 text-sm mt-1">{errors.gender.message}</p>
@@ -359,7 +359,7 @@ export default function Register() {
               htmlFor="birthdate"
               className="text-sm font-bold text-[#919499] block"
             >
-              تاريخ الميلاد طبقًا لبطاقة الهوية
+              {t("register.birthdate")}
             </Label>
             <Input
               id="birthdate"
@@ -380,7 +380,7 @@ export default function Register() {
             htmlFor="marital_status"
             className="text-sm font-bold text-[#919499] block"
           >
-            الحالة الاجتماعية
+            {t("register.maritalStatus")}
           </Label>
           <select
             id="marital_status"
@@ -388,11 +388,11 @@ export default function Register() {
             {...register("marital_status")}
             required
           >
-            <option value="">اختيار</option>
-            <option value="single">أعزب/عزباء</option>
-            <option value="married">متزوج/متزوجة</option>
-            <option value="divorced">مطلق/مطلقة</option>
-            <option value="widowed">أرمل/أرملة</option>
+            <option value="">{t("register.maritalStatusPlaceholder")}</option>
+            <option value="single">{t("register.single")}</option>
+            <option value="married">{t("register.married")}</option>
+            <option value="divorced">{t("register.divorced")}</option>
+            <option value="widowed">{t("register.widowed")}</option>
           </select>
           {errors.marital_status && (
             <p className="text-red-500 text-sm mt-1">{errors.marital_status.message}</p>
@@ -401,7 +401,7 @@ export default function Register() {
 
         {/* Address Section */}
         <div className="space-y-4 pt-4">
-          <h3 className="text-lg font-bold text-[#919499]">عنوان السكن</h3>
+          <h3 className="text-lg font-bold text-[#919499]">{t("register.addressTitle")}</h3>
 
           {/* Building Number and Street Name */}
           <div className="grid grid-cols-2 gap-4">
@@ -410,12 +410,12 @@ export default function Register() {
                 htmlFor="building_number"
                 className="text-sm font-bold text-[#919499] block"
               >
-                رقم المبنى (4 أرقام)
+                {t("register.buildingNumber")}
               </Label>
               <Input
                 id="building_number"
                 type="text"
-                placeholder="1234"
+                placeholder={t("register.buildingNumberPlaceholder")}
                 maxLength={4}
                 className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                 {...register("building_number")}
@@ -431,12 +431,12 @@ export default function Register() {
                 htmlFor="street_name"
                 className="text-sm font-bold text-[#919499] block"
               >
-                اسم الشارع (أحرف عربية)
+                {t("register.streetName")}
               </Label>
               <Input
                 id="street_name"
                 type="text"
-                placeholder="شارع الملك فهد"
+                placeholder={t("register.streetNamePlaceholder")}
                 className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                 {...register("street_name")}
                 required
@@ -454,12 +454,12 @@ export default function Register() {
                 htmlFor="sub_number"
                 className="text-sm font-bold text-[#919499] block"
               >
-                الرقم الفرعي (4 أرقام)
+                {t("register.subNumber")}
               </Label>
               <Input
                 id="sub_number"
                 type="text"
-                placeholder="5678"
+                placeholder={t("register.subNumberPlaceholder")}
                 maxLength={4}
                 className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                 {...register("sub_number")}
@@ -475,12 +475,12 @@ export default function Register() {
                 htmlFor="district"
                 className="text-sm font-bold text-[#919499] block"
               >
-                الحي (أحرف عربية)
+                {t("register.district")}
               </Label>
               <Input
                 id="district"
                 type="text"
-                placeholder="حي السلام"
+                placeholder={t("register.districtPlaceholder")}
                 className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                 {...register("district")}
                 required
@@ -498,12 +498,12 @@ export default function Register() {
                 htmlFor="postal_code"
                 className="text-sm font-bold text-[#919499] block"
               >
-                الرمز البريدي (5 أرقام)
+                {t("register.postalCode")}
               </Label>
               <Input
                 id="postal_code"
                 type="text"
-                placeholder="12345"
+                placeholder={t("register.postalCodePlaceholder")}
                 maxLength={5}
                 className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                 {...register("postal_code")}
@@ -519,12 +519,12 @@ export default function Register() {
                 htmlFor="city"
                 className="text-sm font-bold text-[#919499] block"
               >
-                المدينة (أحرف عربية)
+                {t("register.city")}
               </Label>
               <Input
                 id="city"
                 type="text"
-                placeholder="الرياض"
+                placeholder={t("register.cityPlaceholder")}
                 className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                 {...register("city")}
                 required
