@@ -41,6 +41,12 @@ interface GuarantorData {
     validIdFile: File | null;
     incomeProofFile: File | null;
     creditReportFile: File | null;
+    // New address fields matching API requirements
+    dateOfBirth: string;
+    buildingNo: string;
+    secondaryNo: string;
+    district: string;
+    postalCode: string;
 }
 
 interface GuarantorInformationFormProps {
@@ -206,7 +212,22 @@ export default function GuarantorInformationForm({
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
                         />
                     </div>
-                    
+
+                    {/* Date of Birth */}
+                    <div className="space-y-2">
+                        <Label htmlFor="guarantorDateOfBirth" className="block text-gray-600 font-medium">
+                            {t('dateOfBirth')}
+                        </Label>
+                        <Input
+                            id="guarantorDateOfBirth"
+                            type="date"
+                            placeholder="YYYY-MM-DD"
+                            value={data.dateOfBirth}
+                            onChange={(e) => onChange('dateOfBirth', e.target.value)}
+                            className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                        />
+                    </div>
+
                     {/* Address */}
                     <div className="space-y-2">
                         <Label htmlFor="guarantorAddress" className="block text-gray-600 font-medium">
@@ -218,6 +239,66 @@ export default function GuarantorInformationForm({
                             placeholder={t('streetPlaceholder')}
                             value={data.street}
                             onChange={(e) => onChange('street', e.target.value)}
+                            className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                        />
+                    </div>
+
+                    {/* Building Number */}
+                    <div className="space-y-2">
+                        <Label htmlFor="guarantorBuildingNo" className="block text-gray-600 font-medium">
+                            {t('buildingNo')}
+                        </Label>
+                        <Input
+                            id="guarantorBuildingNo"
+                            type="text"
+                            placeholder={tc('input')}
+                            value={data.buildingNo}
+                            onChange={(e) => onChange('buildingNo', e.target.value)}
+                            className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                        />
+                    </div>
+
+                    {/* Secondary Number */}
+                    <div className="space-y-2">
+                        <Label htmlFor="guarantorSecondaryNo" className="block text-gray-600 font-medium">
+                            {t('secondaryNo')}
+                        </Label>
+                        <Input
+                            id="guarantorSecondaryNo"
+                            type="text"
+                            placeholder={tc('input')}
+                            value={data.secondaryNo}
+                            onChange={(e) => onChange('secondaryNo', e.target.value)}
+                            className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                        />
+                    </div>
+
+                    {/* District */}
+                    <div className="space-y-2">
+                        <Label htmlFor="guarantorDistrict" className="block text-gray-600 font-medium">
+                            {t('district')}
+                        </Label>
+                        <Input
+                            id="guarantorDistrict"
+                            type="text"
+                            placeholder={tc('input')}
+                            value={data.district}
+                            onChange={(e) => onChange('district', e.target.value)}
+                            className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
+                        />
+                    </div>
+
+                    {/* Postal Code */}
+                    <div className="space-y-2">
+                        <Label htmlFor="guarantorPostalCode" className="block text-gray-600 font-medium">
+                            {t('postalCode')}
+                        </Label>
+                        <Input
+                            id="guarantorPostalCode"
+                            type="text"
+                            placeholder={tc('input')}
+                            value={data.postalCode}
+                            onChange={(e) => onChange('postalCode', e.target.value)}
                             className="h-12 rounded-lg border-gray-300 bg-white placeholder:text-gray-400"
                         />
                     </div>

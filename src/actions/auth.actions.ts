@@ -92,7 +92,7 @@ export async function userOtpVerification(userData: OtpVerificationData) {
       { withCredentials: true }
     );
 
-    console.log(response,"xx");
+    console.log(response, "xx");
     // Grab all set-cookie headers
     const setCookies = response.headers["set-cookie"];
     if (setCookies) {
@@ -199,15 +199,7 @@ export async function userRegister(userData: RegisterFormData) {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/api/signup`,
-      {
-        name: userData.name,
-        email: userData.email,
-        phone: userData.phone,
-        national_id: userData.national_id,
-        id_expiry_date: userData.id_expiry_date,
-        password: userData.password,
-        confirmPassword: userData.confirmPassword,
-      }
+      userData
     );
     return response.data;
   } catch (error: unknown) {
@@ -219,15 +211,17 @@ export async function userRegister(userData: RegisterFormData) {
   }
 }
 
-export async function resendOtp(email: string) {
+export async function resendOtp(email: string, type: string) {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/api/resend-otp`,
       {
         email: email,
-        type: "forgot_password",
+        type,
       }
     );
+
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Resend OTP error:", error);
