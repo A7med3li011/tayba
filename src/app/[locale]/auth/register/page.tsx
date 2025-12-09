@@ -18,17 +18,17 @@ interface RegisterFormData {
   name: string;
   email: string;
   phone: string;
-  phone2: string;
+  mobile: string;
   national_id: string;
   id_expiry_date: string;
   gender: string;
-  birthdate: string;
-  marital_status: string;
-  building_number: string;
+  date_of_birth: string;
+  social_status: string;
+  building_no: string;
   street_name: string;
-  sub_number: string;
+  secondary_no: string;
   district: string;
-  postal_code: string;
+  zip: string;
   city: string;
   password: string;
   confirmPassword: string;
@@ -59,7 +59,7 @@ export default function Register() {
         .min(9, t("validation.phoneLength"))
         .max(15, t("validation.phoneLength"))
         .regex(/^\d+$/, t("validation.phoneNumeric")),
-      phone2: z
+      mobile: z
         .string()
         .nonempty("رقم الجوال 2 مطلوب")
         .min(9, "رقم الجوال يجب أن يكون بين 9 و 15 رقم")
@@ -78,9 +78,9 @@ export default function Register() {
           t("validation.expiryDateFuture")
         ),
       gender: z.string().nonempty("الجنس مطلوب"),
-      birthdate: z.string().nonempty("تاريخ الميلاد مطلوب"),
-      marital_status: z.string().nonempty("الحالة الاجتماعية مطلوبة"),
-      building_number: z
+      date_of_birth: z.string().nonempty("تاريخ الميلاد مطلوب"),
+      social_status: z.string().nonempty("الحالة الاجتماعية مطلوبة"),
+      building_no: z
         .string()
         .nonempty("رقم المبنى مطلوب")
         .length(4, "رقم المبنى يجب أن يكون 4 أرقام")
@@ -88,8 +88,11 @@ export default function Register() {
       street_name: z
         .string()
         .nonempty("اسم الشارع مطلوب")
-        .regex(/^[\u0600-\u06FF\s]+$/, "اسم الشارع يجب أن يحتوي على أحرف عربية فقط"),
-      sub_number: z
+        .regex(
+          /^[\u0600-\u06FF\s]+$/,
+          "اسم الشارع يجب أن يحتوي على أحرف عربية فقط"
+        ),
+      secondary_no: z
         .string()
         .nonempty("الرقم الفرعي مطلوب")
         .length(4, "الرقم الفرعي يجب أن يكون 4 أرقام")
@@ -98,7 +101,7 @@ export default function Register() {
         .string()
         .nonempty("الحي مطلوب")
         .regex(/^[\u0600-\u06FF\s]+$/, "الحي يجب أن يحتوي على أحرف عربية فقط"),
-      postal_code: z
+      zip: z
         .string()
         .nonempty("الرمز البريدي مطلوب")
         .length(5, "الرمز البريدي يجب أن يكون 5 أرقام")
@@ -106,7 +109,10 @@ export default function Register() {
       city: z
         .string()
         .nonempty("المدينة مطلوبة")
-        .regex(/^[\u0600-\u06FF\s]+$/, "المدينة يجب أن تحتوي على أحرف عربية فقط"),
+        .regex(
+          /^[\u0600-\u06FF\s]+$/,
+          "المدينة يجب أن تحتوي على أحرف عربية فقط"
+        ),
       password: z
         .string()
         .nonempty(t("validation.passwordRequired"))
@@ -141,7 +147,7 @@ export default function Register() {
         document.cookie = `otp_email=${encodeURIComponent(
           data.email
         )}; path=/; max-age=3600`;
-        document.cookie = `otp_type=register; path=/; max-age=3600`;
+        document.cookie = `otp_type=signup; path=/; max-age=3600`;
 
         setSuccess(t("register.success"));
         setTimeout(() => {
@@ -251,29 +257,33 @@ export default function Register() {
               required
             />
             {errors.phone && (
-              <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.phone.message}
+              </p>
             )}
           </div>
 
           {/* Phone 2 Field */}
           <div className="space-y-2">
             <Label
-              htmlFor="phone2"
+              htmlFor="mobile"
               className="text-sm font-bold text-[#919499] block"
             >
               {t("register.phone2")}
             </Label>
             <Input
               dir="rtl"
-              id="phone2"
+              id="mobile"
               type="tel"
               placeholder={t("register.phone2Placeholder")}
               className="h-12 placeholder:text-gray-400 placeholder:text-start border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              {...register("phone2")}
+              {...register("mobile")}
               required
             />
-            {errors.phone2 && (
-              <p className="text-red-500 text-sm mt-1">{errors.phone2.message}</p>
+            {errors.mobile && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.mobile.message}
+              </p>
             )}
           </div>
         </div>
@@ -349,27 +359,31 @@ export default function Register() {
               <option value="female">{t("register.female")}</option>
             </select>
             {errors.gender && (
-              <p className="text-red-500 text-sm mt-1">{errors.gender.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.gender.message}
+              </p>
             )}
           </div>
 
           {/* Birthdate Field */}
           <div className="space-y-2" dir="rtl">
             <Label
-              htmlFor="birthdate"
+              htmlFor="date_of_birth"
               className="text-sm font-bold text-[#919499] block"
             >
               {t("register.birthdate")}
             </Label>
             <Input
-              id="birthdate"
+              id="date_of_birth"
               type="date"
               className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              {...register("birthdate")}
+              {...register("date_of_birth")}
               required
             />
-            {errors.birthdate && (
-              <p className="text-red-500 text-sm mt-1">{errors.birthdate.message}</p>
+            {errors.date_of_birth && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.date_of_birth.message}
+              </p>
             )}
           </div>
         </div>
@@ -377,52 +391,58 @@ export default function Register() {
         {/* Marital Status Field */}
         <div className="space-y-2">
           <Label
-            htmlFor="marital_status"
+            htmlFor="social_status"
             className="text-sm font-bold text-[#919499] block"
           >
             {t("register.maritalStatus")}
           </Label>
           <select
-            id="marital_status"
+            id="social_status"
             className="h-12 w-full rounded-lg border border-gray-300 bg-white px-3 text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            {...register("marital_status")}
+            {...register("social_status")}
             required
           >
             <option value="">{t("register.maritalStatusPlaceholder")}</option>
             <option value="single">{t("register.single")}</option>
             <option value="married">{t("register.married")}</option>
-            <option value="divorced">{t("register.divorced")}</option>
-            <option value="widowed">{t("register.widowed")}</option>
+            {/* <option value="divorced">{t("register.divorced")}</option> */}
+            <option value="widower">{t("register.widowed")}</option>
           </select>
-          {errors.marital_status && (
-            <p className="text-red-500 text-sm mt-1">{errors.marital_status.message}</p>
+          {errors.social_status && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.social_status.message}
+            </p>
           )}
         </div>
 
         {/* Address Section */}
         <div className="space-y-4 pt-4">
-          <h3 className="text-lg font-bold text-[#919499]">{t("register.addressTitle")}</h3>
+          <h3 className="text-lg font-bold text-[#919499]">
+            {t("register.addressTitle")}
+          </h3>
 
           {/* Building Number and Street Name */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label
-                htmlFor="building_number"
+                htmlFor="building_no"
                 className="text-sm font-bold text-[#919499] block"
               >
                 {t("register.buildingNumber")}
               </Label>
               <Input
-                id="building_number"
+                id="building_no"
                 type="text"
                 placeholder={t("register.buildingNumberPlaceholder")}
                 maxLength={4}
                 className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                {...register("building_number")}
+                {...register("building_no")}
                 required
               />
-              {errors.building_number && (
-                <p className="text-red-500 text-sm mt-1">{errors.building_number.message}</p>
+              {errors.building_no && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.building_no.message}
+                </p>
               )}
             </div>
 
@@ -442,7 +462,9 @@ export default function Register() {
                 required
               />
               {errors.street_name && (
-                <p className="text-red-500 text-sm mt-1">{errors.street_name.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.street_name.message}
+                </p>
               )}
             </div>
           </div>
@@ -451,22 +473,24 @@ export default function Register() {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label
-                htmlFor="sub_number"
+                htmlFor="secondary_no"
                 className="text-sm font-bold text-[#919499] block"
               >
                 {t("register.subNumber")}
               </Label>
               <Input
-                id="sub_number"
+                id="secondary_no"
                 type="text"
                 placeholder={t("register.subNumberPlaceholder")}
                 maxLength={4}
                 className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                {...register("sub_number")}
+                {...register("secondary_no")}
                 required
               />
-              {errors.sub_number && (
-                <p className="text-red-500 text-sm mt-1">{errors.sub_number.message}</p>
+              {errors.secondary_no && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.secondary_no.message}
+                </p>
               )}
             </div>
 
@@ -486,7 +510,9 @@ export default function Register() {
                 required
               />
               {errors.district && (
-                <p className="text-red-500 text-sm mt-1">{errors.district.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.district.message}
+                </p>
               )}
             </div>
           </div>
@@ -495,22 +521,24 @@ export default function Register() {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label
-                htmlFor="postal_code"
+                htmlFor="zip"
                 className="text-sm font-bold text-[#919499] block"
               >
                 {t("register.postalCode")}
               </Label>
               <Input
-                id="postal_code"
+                id="zip"
                 type="text"
                 placeholder={t("register.postalCodePlaceholder")}
                 maxLength={5}
                 className="h-12 border-gray-300 rounded-lg text-base focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                {...register("postal_code")}
+                {...register("zip")}
                 required
               />
-              {errors.postal_code && (
-                <p className="text-red-500 text-sm mt-1">{errors.postal_code.message}</p>
+              {errors.zip && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.zip.message}
+                </p>
               )}
             </div>
 
@@ -530,7 +558,9 @@ export default function Register() {
                 required
               />
               {errors.city && (
-                <p className="text-red-500 text-sm mt-1">{errors.city.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.city.message}
+                </p>
               )}
             </div>
           </div>

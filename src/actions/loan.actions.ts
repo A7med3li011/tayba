@@ -18,6 +18,8 @@ export async function requestLoan(formData: FormData): Promise<LoanRequestRespon
     
     try {
         const cookieStore = await cookies();
+
+        
         const sessionId = cookieStore.get("session_id")?.value;
         const api_session = cookieStore.get("api_session")?.value;
         // Send FormData directly to the API endpoint
