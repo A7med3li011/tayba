@@ -572,6 +572,38 @@
       "remainingInstallments": "Remaining Installments",
       "totalLoan": "Total Loan",
       "endDate": "End Date"
+    },
+    "loanCard": {
+      "status": {
+        "underReview": "Under Review",
+        "approved": "Pay",
+        "rejected": "Rejected",
+        "draft": "Under Review"
+      },
+      "months": "months",
+      "loanNotApproved": "The loan hasn't been approved yet."
+    },
+    "loanInfo": {
+      "studyLoan": "Study Loan",
+      "months": "months",
+      "loanAmount": "Loan Amount",
+      "remainingAmount": "Remaining Amount",
+      "installmentCount": "Number of Installments",
+      "installmentAmount": "Installment Amount",
+      "perMonth": "/month",
+      "applicationDate": "Application Date",
+      "endDate": "End Date",
+      "installments": "Installments",
+      "earlyPayment": "Early Payment",
+      "amount": "Amount",
+      "date": "Date",
+      "status": "Status",
+      "loading": "Loading...",
+      "retry": "Retry",
+      "paymentStatus": {
+        "pay": "Pay",
+        "paid": "Paid"
+      }
     }
   },
   "common": {

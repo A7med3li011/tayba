@@ -286,12 +286,21 @@ function LoanRequestForm() {
       // Personal information fields
       form.append("requester_gender", formData.gender ?? "male");
       form.append("requester_date_of_birth", formData.dateOfBirth ?? "");
-      form.append("requester_social_status", formData.socialStatus ?? "married");
-      form.append("requester_mobile", (formData.mobile || userInfo.phone) ?? "");
+      form.append(
+        "requester_social_status",
+        formData.socialStatus ?? "married"
+      );
+      form.append(
+        "requester_mobile",
+        (formData.mobile || userInfo.phone) ?? ""
+      );
 
       // Address details
       form.append("requester_building_no", formData.buildingNo ?? "");
-      form.append("requester_street_name", (formData.streetName || formData.address) ?? "");
+      form.append(
+        "requester_street_name",
+        (formData.streetName || formData.address) ?? ""
+      );
       form.append("requester_secondary_no", formData.secondaryNo ?? "");
       form.append("requester_district", formData.district ?? "");
       form.append("requester_postal_code", formData.postalCode ?? "");
@@ -352,24 +361,25 @@ function LoanRequestForm() {
       );
 
       // Loan meta
-      form.append(
-        "number_of_installments",
-        formData.installmentCount === "اختيار"
-          ? ""
-          : String(formData.installmentCount)
-      );
+      form.append("number_of_installments", "10");
       form.append("loan_amount_number", String(formData.loanAmount ?? ""));
       form.append("loan_reason_id", formData.purpose ?? "");
       form.append("is_eligible", formData.loanBeneficiary ?? "");
 
       // Additional loan detail fields
-      form.append("reason_for_current_loan", (formData.reasonForCurrentLoan || formData.purpose) ?? "");
+      form.append(
+        "reason_for_current_loan",
+        (formData.reasonForCurrentLoan || formData.purpose) ?? ""
+      );
       form.append("amount_of_loan", String(formData.loanAmount ?? ""));
       form.append(
         "isoutstanding_loan_endowment",
         formData.outstandingLoanEndowment ? "yes" : "no"
       );
-      form.append("amount_of_loan_remaining", formData.amountOfLoanRemaining ?? "0");
+      form.append(
+        "amount_of_loan_remaining",
+        formData.amountOfLoanRemaining ?? "0"
+      );
       form.append(
         "islast_transaction_closed",
         formData.lastTransactionClosed ? "yes" : "no"
@@ -1380,7 +1390,7 @@ function LoanRequestForm() {
               </div>
 
               {/* Installment Count */}
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <Label
                   htmlFor="installmentCount"
                   className="block text-gray-600 font-bold"
@@ -1413,6 +1423,7 @@ function LoanRequestForm() {
                   <ChevronDown className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 </div>
               </div>
+               */}
 
               {/* Loan Amount */}
               <div className="space-y-2">
