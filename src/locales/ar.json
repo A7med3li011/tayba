@@ -572,6 +572,38 @@
       "remainingInstallments": "الأقساط المتبقية",
       "totalLoan": "إجمالي القرض",
       "endDate": "تاريخ الانتهاء"
+    },
+    "loanCard": {
+      "status": {
+        "underReview": "قيد المراجعة",
+        "approved": "تسديد",
+        "rejected": "مرفوض",
+        "draft": "قيد المراجعة"
+      },
+      "months": "شهر",
+      "loanNotApproved": "لم يتم قبول القرض حتى الان"
+    },
+    "loanInfo": {
+      "studyLoan": "قرض للدراسة",
+      "months": "شهر",
+      "loanAmount": "مبلغ القرض",
+      "remainingAmount": "مبلغ المتبقي",
+      "installmentCount": "عدد الأقساط",
+      "installmentAmount": "قيمة القسط",
+      "perMonth": "/شهر",
+      "applicationDate": "تاريخ الطلب",
+      "endDate": "تاريخ الانتهاء",
+      "installments": "أقساط",
+      "earlyPayment": "تسديد معجل",
+      "amount": "المبلغ",
+      "date": "التاريخ",
+      "status": "الحالة",
+      "loading": "جاري التحميل...",
+      "retry": "إعادة المحاولة",
+      "paymentStatus": {
+        "pay": "تسديد",
+        "paid": "مسدد"
+      }
     }
   },
   "common": {
