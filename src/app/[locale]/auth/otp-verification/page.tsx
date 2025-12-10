@@ -161,7 +161,7 @@ export default function OTPVerification() {
           // Set the verified OTP in a cookie for the reset password page
           document.cookie = `verified_otp=${otpCode}; path=/; max-age=3600`;
           router.push(`/${locale}/auth/reset-password`);
-        } else if (otpType === "register") {
+        } else if (otpType === "signup") {
           // Clear cookies after registration verification
           document.cookie = "otp_email=; path=/; max-age=0";
           document.cookie = "otp_type=; path=/; max-age=0";

@@ -29,11 +29,12 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <div className="min-h-screen flex">
         {/* Right Half - App Promotion */}
-        <div className="w-[40%] bg-gradient-to-br from-primary to-primary/90 flex flex-col items-center pt-16 p-8 text-white relative z-0 shadow-[inset_10px_0_10px_3px_rgba(0,0,0,0.3)]">
+        <div className="w-[40%] bg-gradient-to-br from-primary to-primary/90 lg:flex flex-col items-center pt-16 p-8 text-white relative z-0 shadow-[inset_10px_0_10px_3px_rgba(0,0,0,0.3)] hidden">
           <div className="text-start max-w-md">
             {/* Main Headline */}
             <h2 className="text-4xl font-bold mb-6">
-              {t("headline")} <span className="text-secondary">{t("headlineHighlight")}</span>
+              {t("headline")}{" "}
+              <span className="text-secondary">{t("headlineHighlight")}</span>
             </h2>
 
             {/* Description */}
@@ -73,7 +74,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
                     alt="iphone"
                     width={400}
                     height={500}
-                    className="absolute bottom-0 end-1/2 transform -translate-x-1/2 z-10"
+                    className="absolute bottom-0 end-1/2 transform -translate-x-1/2 z-10 "
                   />
                 </>
               )}
@@ -84,7 +85,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
                     alt="iphone"
                     width={300}
                     height={500}
-                    className="absolute bottom-0 start-0 transform z-10"
+                    className="absolute bottom-0 top-[-50px] left-20 start-0 transform z-10"
                   />
                 </>
               )}
@@ -125,7 +126,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
         {/* Left Half - Registration Form */}
-        <div className="w-[60%] bg-white relative">
+        <div className="w-full bg-white relative">
           <div className="absolute bottom-0 left-0 right-0 h-[250px] overflow-hidden">
             <Image
               src={bgPattern.src}
