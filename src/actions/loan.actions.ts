@@ -13,17 +13,26 @@ interface LoanRequestResponse {
 export async function requestLoan(
   formData: FormData
 ): Promise<LoanRequestResponse> {
-  console.log(formData, "formData");
+  // Log FormData contents for debugging
+  console.log("=== LOAN REQUEST START (Server Action) ===");
+  console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
   console.log(
-    process.env.NEXT_PUBLIC_API_URL,
-    "process.env.NEXT_PUBLIC_API_URL"
+    "Endpoint:",
+    `${process.env.NEXT_PUBLIC_API_URL}/api/loan/create`
   );
+  console.log("FormData entries:");
 
   try {
     const cookieStore = await cookies();
 
     const sessionId = cookieStore.get("session_id")?.value;
     const api_session = cookieStore.get("api_session")?.value;
+
+    console.log("Session cookies:", {
+      sessionId,
+      api_session: api_session ? "present" : "missing",
+    });
+
     // Send FormData directly to the API endpoint
     const response = await axios.post<LoanRequestResponse>(
       `${process.env.NEXT_PUBLIC_API_URL}/api/loan/create`,
@@ -37,12 +46,17 @@ export async function requestLoan(
       }
     );
 
+    console.log("=== LOAN REQUEST SUCCESS ===");
+    console.log("Response status:", response.status);
+    console.log("Response data:", response.data);
+
     return {
       success: true,
       message: response.data.message || "تم إرسال طلب القرض بنجاح",
       data: response.data,
     };
   } catch (error: unknown) {
+    console.error("=== LOAN REQUEST ERROR ===");
     console.error("Loan request error:", error);
 
     if (axios.isAxiosError(error)) {
