@@ -32,10 +32,11 @@ export async function requestLoan(
         headers: {
           Cookie: `api_session=${api_session}; session_id=${sessionId}`,
         },
+        timeout: 600000,
         withCredentials: true,
       }
     );
-    
+
     return {
       success: true,
       message: response.data.message || "تم إرسال طلب القرض بنجاح",
