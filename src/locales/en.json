@@ -601,8 +601,11 @@
       "loading": "Loading...",
       "retry": "Retry",
       "paymentStatus": {
-        "pay": "Pay",
-        "paid": "Paid"
+        "paid": "Paid", 
+        "due": "Due",
+        "late": "Late",
+        "pending_review": "Pending Review",
+        "rejected": "Rejected"
       }
     }
   },
