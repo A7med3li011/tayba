@@ -35,7 +35,7 @@ export async function requestLoan(
         withCredentials: true,
       }
     );
-    console.log(response.data);
+    
     return {
       success: true,
       message: response.data.message || "تم إرسال طلب القرض بنجاح",
