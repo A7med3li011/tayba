@@ -10,7 +10,7 @@ import FinancialStatusForm from "./FinancialStatusForm";
 import GuarantorInformationForm from "./GuarantorInformationForm";
 import { getCountries } from "@/actions/loan.actions";
 import { getProfileData } from "@/actions/profile.actions";
-import { requestLoan } from "@/actions/loan.actions";
+import { requestLoan } from "@/lib/loan-client";
 import { Button } from "../ui/button";
 import { useTranslations } from "next-intl";
 
