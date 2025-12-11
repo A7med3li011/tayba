@@ -15,7 +15,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // ADD THIS 👇 (Fix for 1MB limit)
+
   experimental: {
+    serverActions: {
+      bodySizeLimit: "100mb",
+    },
     turbo: {
       rules: {
         "*.svg": {
