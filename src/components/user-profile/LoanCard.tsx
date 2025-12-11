@@ -75,7 +75,7 @@ export default function LoanCard({
             </p>
           </div>
         </div>
-        <div className="">
+        {/* <div className="">
           <div
             className="radial-progress bg-transparent text-secondary text-lg font-bold border-gray-100 border-4"
             style={
@@ -90,7 +90,7 @@ export default function LoanCard({
           >
             {progressPercentage}%
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex items-center justify-between">
@@ -103,10 +103,10 @@ export default function LoanCard({
         </div>
         <button
           onClick={() => {
-            // if (status !== "approved") {
-            //   toast.error(t("loanNotApproved"));
-            //   return;
-            // }
+            if (status !== "approved") {
+              toast.error(t("loanNotApproved"));
+              return;
+            }
             router.push(`/${locale}/user-profile/loans/loan-info?id=${id}`);
           }}
           className={`${buttonColor} text-white px-5 py-2 rounded-xl font-bold ${buttonHoverColor} cursor-pointer transition-colors`}

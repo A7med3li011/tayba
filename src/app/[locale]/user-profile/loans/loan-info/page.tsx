@@ -36,6 +36,15 @@ export default function LoanInfo() {
 
   const id = searchParams.get("id");
 
+  // Helper function to translate payment status
+  const getTranslatedStatus = (status: string | undefined): string => {
+    if (!status) return "N/A";
+
+    // Map backend status values to translation keys
+    const statusKey = status.toLowerCase().trim();
+    return t(`paymentStatus.${statusKey}`) || status;
+  };
+
   const getLoan = async (id: string | null) => {
     if (!id) {
       setError("No loan ID provided");
@@ -226,12 +235,12 @@ export default function LoanInfo() {
               <h3 className="text-2xl font-bold text-primary">
                 {t("installments")}
               </h3>
-              <Button
+              {/* <Button
                 variant="outline"
                 className="text-secondary border-secondary hover:bg-secondary hover:text-white cursor-pointer rounded-full px-6 font-bold"
               >
                 {t("earlyPayment")}
-              </Button>
+              </Button> */}
             </div>
 
             {/* Table Header */}
@@ -251,7 +260,7 @@ export default function LoanInfo() {
                   <div className="grid grid-cols-3 gap-4 items-center">
                     <div className=" flex items-center gap-1">
                       <span className="text-gray-800 font-semibold text-lg">
-                        {payment?.amount || "N/A"}
+                        {payment?.amount?.toFixed(2) || "N/A"}
                       </span>
                       <SaudiRiyalIcon className="fill-yellow-500 w-5 h-5" />
                     </div>
@@ -259,11 +268,24 @@ export default function LoanInfo() {
                       {payment?.due_date || "N/A"}
                     </div>
                     <div className="text-end">
-                      <span
-                        className={`px-4 py-2 rounded-lg ${payment.statusTextColor} text-sm font-bold ${payment.statusColor}`}
-                      >
-                        {payment.status || "N/A"}
-                      </span>
+                      {payment.status?.toLowerCase() === "due" ? (
+                        <Button
+                          variant="default"
+                          className="bg-secondary hover:bg-secondary/90 text-white rounded-lg   cursor-pointer px-6 py-2 font-bold"
+                          onClick={() => {
+                            // Handle payment action
+                            console.log("Pay installment:", payment);
+                          }}
+                        >
+                          {t("paymentStatus.pay")}
+                        </Button>
+                      ) : (
+                        <span
+                          className={`px-4 py-2 rounded-lg ${payment.statusTextColor} text-sm font-bold ${payment.statusColor}`}
+                        >
+                          {getTranslatedStatus(payment.status)}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // ADD THIS 👇 (Fix for 1MB limit)
+  
 
   experimental: {
     serverActions: {
