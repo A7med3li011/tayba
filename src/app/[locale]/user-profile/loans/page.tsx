@@ -17,6 +17,7 @@ interface Loan {
   start_date: string | null;
   end_date: string | null;
   status: "under_review" | "approved" | "rejected";
+  promissory_note_uploaded: boolean;
 }
 
 export default function LoanDashboard() {
@@ -72,6 +73,7 @@ export default function LoanDashboard() {
             start_date={loan.start_date}
             end_date={loan.end_date}
             status={loan.status}
+            promissory_note_uploaded={loan.promissory_note_uploaded}
           />
         ))}
       </div>

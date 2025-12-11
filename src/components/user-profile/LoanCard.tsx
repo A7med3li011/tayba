@@ -1,10 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState, useRef } from "react";
 import { RiGraduationCapFill } from "react-icons/ri";
 import RiyalIcon from "@/assets/images/SaudiRiyalSymbol.svg";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useLocale, useTranslations } from "next-intl";
+import { talabElsanad } from "@/actions/loan.actions";
 
 interface LoanCardProps {
   id: number;
@@ -14,6 +15,7 @@ interface LoanCardProps {
   number_of_installments: number;
   submission_date: string;
   start_date: string | null;
+  promissory_note_uploaded: boolean;
   end_date: string | null;
   status: "under_review" | "approved" | "rejected" | "draft";
   buttonText?: string;
@@ -29,6 +31,7 @@ export default function LoanCard({
   number_of_installments,
   submission_date,
   status,
+  promissory_note_uploaded,
   buttonText,
   buttonColor = status === "under_review" || status === "draft"
     ? "bg-gray-400"
@@ -44,6 +47,8 @@ export default function LoanCard({
   const router = useRouter();
   const locale = useLocale();
   const t = useTranslations("userProfile.loanCard");
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const defaultButtonText =
     status === "under_review" || status === "draft"
@@ -57,6 +62,38 @@ export default function LoanCard({
       : status === "approved"
       ? 50
       : 100;
+
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("promissory_note", file);
+      formData.append("loan_id", id.toString());
+
+      const result = await talabElsanad(formData);
+
+      if (result.success) {
+        toast.success(result.message || "تم رفع سند الأمر بنجاح");
+        // Refresh the page or update the UI as needed
+        window.location.reload();
+      } else {
+        toast.error(result.message || "حدث خطأ أثناء رفع سند الأمر");
+      }
+    } catch (error) {
+      console.error("File upload error:", error);
+      toast.error("حدث خطأ أثناء رفع الملف");
+    } finally {
+      setIsUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
   return (
     <div
       className="bg-white rounded-3xl shadow-sm border border-gray-300 p-6 mx-auto"
@@ -101,18 +138,42 @@ export default function LoanCard({
           </div>
           <div className="text-gray-500 text-sm">{submission_date}</div>
         </div>
-        <button
-          onClick={() => {
-            if (status !== "approved") {
-              toast.error(t("loanNotApproved"));
-              return;
-            }
-            router.push(`/${locale}/user-profile/loans/loan-info?id=${id}`);
-          }}
-          className={`${buttonColor} text-white px-5 py-2 rounded-xl font-bold ${buttonHoverColor} cursor-pointer transition-colors`}
-        >
-          {buttonText || defaultButtonText}
-        </button>
+
+        {status === "approved" && !promissory_note_uploaded ? (
+          <div className="flex flex-col gap-2">
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileUpload}
+              accept=".pdf,.jpg,.jpeg,.png"
+              className="hidden"
+              id={`file-upload-${id}`}
+            />
+            <label
+              htmlFor={`file-upload-${id}`}
+              className={`${
+                isUploading ? "bg-gray-400" : "bg-primary"
+              } text-white px-5 py-2 rounded-xl font-bold ${
+                isUploading ? "cursor-not-allowed" : "hover:bg-primary-dark cursor-pointer"
+              } transition-colors text-center`}
+            >
+              {isUploading ? "جاري الرفع..." : "رفع سند الأمر"}
+            </label>
+          </div>
+        ) : (
+          <button
+            onClick={() => {
+              if (status !== "approved") {
+                toast.error(t("loanNotApproved"));
+                return;
+              }
+              router.push(`/${locale}/user-profile/loans/loan-info?id=${id}`);
+            }}
+            className={`${buttonColor} text-white px-5 py-2 rounded-xl font-bold ${buttonHoverColor} cursor-pointer transition-colors`}
+          >
+            {buttonText || defaultButtonText}
+          </button>
+        )}
       </div>
 
       {/* Payment button */}
