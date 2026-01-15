@@ -212,7 +212,7 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
                     )}
                   </AnimatePresence>
                 </div>
-              ) : (
+              ) : ( 
                 <Link
                   href={ele.ref}
                   className={cn(
