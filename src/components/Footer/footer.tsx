@@ -5,6 +5,7 @@ import appleStore from '@/assets/images/LandingImgs/Group.png'
 import logo from '@/assets/images/main-logo.png'
 import mdarjLogo from '@/assets/images/mdarjFooter.png'
 import Image from 'next/image';
+import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 
 function Footer({ contactUsFooter }: { contactUsFooter: boolean }) {
@@ -48,9 +49,9 @@ function Footer({ contactUsFooter }: { contactUsFooter: boolean }) {
 
                             <p className={`text-gray-500 text-sm leading-relaxed ${isRTL ? 'text-right' : 'text-left'}`}>
                                 {t('newsletter.privacyNote')}{' '}
-                                <a href="/privacy-policy" className="text-primary hover:underline font-medium">
+                                <Link href="/privacy-policy" className="text-primary hover:underline font-medium">
                                     {t('newsletter.privacyLink')}
-                                </a>{' '}
+                                </Link>{' '}
                                 {t('newsletter.privacyNoteSuffix')}
                             </p>
                         </div>
