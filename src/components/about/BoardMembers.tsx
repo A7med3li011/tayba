@@ -1,12 +1,27 @@
 "use client"
 import { useTranslations, useLocale } from 'next-intl';
+import Image from 'next/image';
+
+import salehHussien from '@/assets/images/saleh-hussien.png';
+import aliKazlan from '@/assets/images/ali-kazlan.png';
+import talalSuail from '@/assets/images/talal-suail.png';
+import mashaalMahalawy from '@/assets/images/mashaal-mahalawy.png';
+import othmanAlhasim from '@/assets/images/othman-alhasim.png';
+
+const memberImages: Record<string, typeof salehHussien> = {
+    'saleh-hussien': salehHussien,
+    'ali-kazlan': aliKazlan,
+    'talal-suail': talalSuail,
+    'mashaal-mahalawy': mashaalMahalawy,
+    'othman-alhasim': othmanAlhasim,
+};
 
 export default function BoardMembers() {
     const t = useTranslations('aboutUs.boardMembers');
     const locale = useLocale();
     const isRTL = locale === 'ar';
 
-    const members = t.raw('members') as Array<{ name: string; title: string }>;
+    const members = t.raw('members') as Array<{ name: string; image: string }>;
 
     return (
         <div className="py-20 px-4">
@@ -18,26 +33,24 @@ export default function BoardMembers() {
                 </h1>
 
                 {/* Members Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-6">
                     {members.map((member, index) => (
                         <div key={index} className="flex flex-col items-center">
-                            {/* Avatar Circle */}
-                            <div className="w-40 h-40 rounded-full bg-gradient-to-br from-indigo-950 to-indigo-900 flex items-center justify-center mb-6 shadow-lg">
-                                <div className="relative">
-                                    {/* Head */}
-                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-300 via-pink-200 to-purple-200 mx-auto mb-1"></div>
-                                    {/* Body */}
-                                    <div className="w-16 h-12 bg-gradient-to-br from-pink-300 via-pink-200 to-purple-300 rounded-t-full"></div>
-                                </div>
+                            {/* Avatar Circle with Image */}
+                            <div className="w-40 h-40 rounded-full overflow-hidden mb-6 shadow-lg">
+                                <Image
+                                    src={memberImages[member.image]}
+                                    alt={member.name}
+                                    width={160}
+                                    height={160}
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
 
                             {/* Name */}
                             <div className="text-center">
                                 <p className="text-blue-900 font-bold text-lg leading-relaxed">
                                     {member.name}
-                                </p>
-                                <p className="text-blue-900 font-bold text-lg leading-relaxed">
-                                    {member.title}
                                 </p>
                             </div>
                         </div>

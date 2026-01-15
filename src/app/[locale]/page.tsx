@@ -14,6 +14,8 @@ import Footer from "@/components/Footer/footer";
 import { useRouter } from "@/i18n/navigation";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import { useLocale, useTranslations } from "next-intl";
+import { useState, useEffect, useCallback } from "react";
+import { getSliders, Slider } from "@/actions/slider.actions";
 
 export default function LandingPage() {
   const router = useRouter();
@@ -21,16 +23,59 @@ export default function LandingPage() {
   const t = useTranslations("hero");
   const isRTL = locale === "ar";
 
+  const [sliders, setSliders] = useState<Slider[]>([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  useEffect(() => {
+    getSliders().then((data) => {
+      if (data.length > 0) {
+        setSliders(data);
+      }
+    });
+  }, []);
+
+  const goToNextSlide = useCallback(() => {
+    if (sliders.length <= 1) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev + 1) % sliders.length);
+      setIsTransitioning(false);
+    }, 500);
+  }, [sliders.length]);
+
+  useEffect(() => {
+    if (sliders.length <= 1) return;
+    const interval = setInterval(goToNextSlide, 5000);
+    return () => clearInterval(interval);
+  }, [sliders.length, goToNextSlide]);
+
+  const currentSlider = sliders[currentSlide];
+
   return (
     <>
       <header className="w-full relative h-auto lg:h-[70vh] xl:h-[75vh] pb-10 lg:pb-0 mb-16">
-        {/* Background Image with Gradient Overlay */}
-        <div
-          className="absolute inset-0 bg-cover bg-no-repeat bg-center"
-          style={{
-            backgroundImage: `url(${background.src})`,
-          }}
-        />
+        {/* Background Image with Gradient Overlay - Fading Slider */}
+        {sliders.length > 0 ? (
+          sliders.map((slider, index) => (
+            <div
+              key={slider.id}
+              className={`absolute inset-0 bg-cover bg-no-repeat bg-center transition-opacity duration-500 ease-in-out ${
+                index === currentSlide ? "opacity-100" : "opacity-0"
+              }`}
+              style={{
+                backgroundImage: `url(${slider.image_url})`,
+              }}
+            />
+          ))
+        ) : (
+          <div
+            className="absolute inset-0 bg-cover bg-no-repeat bg-center"
+            style={{
+              backgroundImage: `url(${background.src})`,
+            }}
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-[#4750707e] to-[#6b74959d]" />
 
         {/* Content */}
@@ -40,17 +85,27 @@ export default function LandingPage() {
           <div className="container ms-auto px-4 sm:px-5 pt-20 lg:pt-16">
             <div className="flex items-center justify-start lg:justify-center">
               <div
-                className={`text-center md:text-start text-white max-w-4xl w-full lg:w-auto ${
+                className={`text-center md:text-start text-white max-w-4xl w-full lg:w-[500px] xl:w-[600px] ${
                   isRTL ? "lg:mr-64 xl:mr-80" : "lg:ml-64 xl:ml-80"
                 }`}
               >
-                <h1 className="text-5xl lg:text-[64px] font-bold mb-6 leading-tight text-stroke">
-                  {t("title")}{" "}
-                  <span className="text-white">{t("titleHighlight")}</span>
+                <h1
+                  className={`text-5xl lg:text-[64px] font-bold mb-6 leading-tight text-stroke transition-opacity duration-500 ease-in-out ${
+                    isTransitioning ? "opacity-0" : "opacity-100"
+                  }`}
+                >
+                  {currentSlider?.name || t("title")}{" "}
+                  {!currentSlider && (
+                    <span className="text-white">{t("titleHighlight")}</span>
+                  )}
                 </h1>
 
-                <p className="text-lg lg:text-xl mb-8 leading-relaxed opacity-90">
-                  {t("description")}
+                <p
+                  className={`text-lg lg:text-xl mb-8 leading-relaxed transition-opacity duration-500 ease-in-out min-h-[60px] lg:min-h-[80px] ${
+                    isTransitioning ? "opacity-0" : "opacity-90"
+                  }`}
+                >
+                  {currentSlider?.description || t("description")}
                 </p>
 
                 <button

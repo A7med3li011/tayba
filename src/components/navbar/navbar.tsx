@@ -17,7 +17,7 @@ const linkKeys = [
   { ref: "/", titleKey: "home" },
   { ref: "/about-us", titleKey: "about" },
   { ref: "/user-profile/loans/loan-request", titleKey: "loanRequest" },
-  { ref: "/governance", titleKey: "governance" },
+  // { ref: "/governance", titleKey: "governance" },
   { ref: "/contact-us", titleKey: "contact" },
 ] as const;
 

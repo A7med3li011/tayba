@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, MapPin, Instagram, Facebook } from 'lucide-react';
+import { Phone, Mail, MapPin, Instagram } from 'lucide-react';
 import googlePlay from '@/assets/images/LandingImgs/Groupplay.png'
 import appleStore from '@/assets/images/LandingImgs/Group.png'
 import logo from '@/assets/images/main-logo.png'
@@ -47,7 +47,11 @@ function Footer({ contactUsFooter }: { contactUsFooter: boolean }) {
                             </div>
 
                             <p className={`text-gray-500 text-sm leading-relaxed ${isRTL ? 'text-right' : 'text-left'}`}>
-                                {t('newsletter.privacyNote')}
+                                {t('newsletter.privacyNote')}{' '}
+                                <a href="/privacy-policy" className="text-primary hover:underline font-medium">
+                                    {t('newsletter.privacyLink')}
+                                </a>{' '}
+                                {t('newsletter.privacyNoteSuffix')}
                             </p>
                         </div>
                     </div>
@@ -94,17 +98,22 @@ function Footer({ contactUsFooter }: { contactUsFooter: boolean }) {
 
                     {/* Social media icons */}
                     <div className="flex gap-3 justify-center sm:justify-start ">
-                        <div className="w-10 h-10 bg-primary hover:bg-gray-700 rounded-lg flex items-center justify-center transition-colors cursor-pointer">
-                            <Instagram className="w-5 h-5 text-white" />
-                        </div>
-                        <div className="w-10 h-10 bg-primary hover:bg-gray-700 rounded-lg flex items-center justify-center transition-colors cursor-pointer">
-                            <Facebook className="w-5 h-5 text-white" />
-                        </div>
-                        <div className="w-10 h-10 bg-primary hover:bg-gray-700 rounded-lg flex items-center justify-center transition-colors cursor-pointer">
+                        {/* X (Twitter) */}
+                        <a href="https://x.com/waqftaiba" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-primary hover:bg-gray-700 rounded-lg flex items-center justify-center transition-colors cursor-pointer">
                             <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                             </svg>
-                        </div>
+                        </a>
+                        {/* YouTube */}
+                        <a href="https://youtube.com/@waqftaiba" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-primary hover:bg-gray-700 rounded-lg flex items-center justify-center transition-colors cursor-pointer">
+                            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg>
+                        </a>
+                        {/* Instagram */}
+                        <a href="https://instagram.com/waqftaiba" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-primary hover:bg-gray-700 rounded-lg flex items-center justify-center transition-colors cursor-pointer">
+                            <Instagram className="w-5 h-5 text-white" />
+                        </a>
                     </div>
                     {/* App download buttons */}
                     <div className="flex gap-4 mb-6 flex-wrap justify-center sm:justify-end ">

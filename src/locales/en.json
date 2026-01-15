@@ -29,12 +29,12 @@
   "hero": {
     "title": "We Support You",
     "titleHighlight": "Financially.",
-    "description": "Waqf Taybah for Good lending offers you a Good lending loan in compliance with Sharia principles.",
+    "description": "Taiba Interest-Free Loan Waqf offers you a Good lending loan in compliance with Sharia principles.",
     "cta": "To meet your needs and fulfill your requirements"
   },
   "whyChooseUs": {
     "mainTitle": "reshapes the lending landscape,",
-    "mainTitleHighlight": "Waqf Taybah for Good lending",
+    "mainTitleHighlight": "Taiba Interest-Free Loan Waqf",
     "mainTitleEnd": "making it an attractive option for many.",
     "subtitle": "By integrating advanced technologies, Islamic finance is reshaping the financial landscape, making it more user-friendly and adaptable to modern needs.",
     "features": {
@@ -52,7 +52,7 @@
       },
       "emergencySolution": {
         "title": "Emergency Solution",
-        "description": "Waqf Taybah for Good lending provides a quick and legitimate solution to financial problems that individuals and families may face, such as treatment or necessary home repairs."
+        "description": "Taiba Interest-Free Loan Waqf provides a quick and legitimate solution to financial problems that individuals and families may face, such as treatment or necessary home repairs."
       }
     }
   },
@@ -120,11 +120,13 @@
     "newsletter": {
       "title": "Follow the Latest",
       "titleHighlight": "News",
-      "subtitle": "Join our newsletter to stay updated on features and releases.",
+      "subtitle": "Join our newsletter to stay updated.",
       "stayConnected": "Always in Touch",
       "emailPlaceholder": "Enter your email",
       "subscribe": "Subscribe",
-      "privacyNote": "By subscribing, you agree to our service privacy policy."
+      "privacyNote": "By subscribing, you agree to our",
+      "privacyLink": "Privacy Policy",
+      "privacyNoteSuffix": "for our service."
     },
     "links": {
       "termsOfUse": "Terms of Use",
@@ -137,7 +139,7 @@
       "email": "waqf.qard.h@gmail.com",
       "location": "Saudi Arabia"
     },
-    "copyright": "Copyright © 2025 Waqf Taybah for Good lending. All rights reserved",
+    "copyright": "Copyright © 2025 Taiba Interest-Free Loan Waqf. All rights reserved",
     "poweredBy": "Powered by Mdarj"
   },
   "aboutUs": {
@@ -158,7 +160,7 @@
       "subtitle": "Enhancing Financial Clarity",
       "title": "Window of Hope",
       "titleHighlight": "Towards a Better Future",
-      "description": "Waqf Taybah for Good lending reshapes the Good lending lending landscape, making it an attractive option for many. By integrating advanced technologies, Islamic finance is reshaping the financial landscape to become more user-friendly and adaptable to modern needs.",
+      "description": "Taiba Interest-Free Loan Waqf reshapes the Good lending lending landscape, making it an attractive option for many. By integrating advanced technologies, Islamic finance is reshaping the financial landscape to become more user-friendly and adaptable to modern needs.",
       "benefits": {
         "emergencySolutions": "Emergency Solutions",
         "technicalSupport": "24/7 Technical Support",
@@ -166,7 +168,7 @@
         "easyTerms": "Easy Terms"
       },
       "additionalInfo": [
-        "Waqf Taybah for Good lending provides a quick and legitimate solution to financial problems such as treatment or necessary home repairs, with a team always ready to provide assistance and answer any questions or issues.",
+        "Taiba Interest-Free Loan Waqf provides a quick and legitimate solution to financial problems such as treatment or necessary home repairs, with a team always ready to provide assistance and answer any questions or issues.",
         "The loan is granted without any interest or fees, ensuring compliance with Islamic Sharia principles, and its procedures are characterized by ease and speed compared to traditional loans, making it an ideal choice for many."
       ]
     },
@@ -220,7 +222,7 @@
         "part1": "Contributing to Achieving the Kingdom's",
         "part2": "Vision"
       },
-      "description": "Waqf Taybah for Good lending contributes to achieving the Kingdom's Vision 2030 targets",
+      "description": "Taiba Interest-Free Loan Waqf contributes to achieving the Kingdom's Vision 2030 targets",
       "through": "through:",
       "benefits": {
         "financial": "Financially empowering individuals and families to achieve self-sufficiency and reduce the need for traditional support.",
@@ -231,24 +233,28 @@
       }
     },
     "boardMembers": {
-      "title": "Board",
-      "titleHighlight": "Members",
+      "title": "Supervisory",
+      "titleHighlight": "Board Members",
       "members": [
         {
-          "name": "Sheikh Abdulaziz bin",
-          "title": "Mohammed bin Saleh Al-Sayf"
+          "name": "Saleh Al-Hussein",
+          "image": "saleh-hussien"
         },
         {
-          "name": "Sheikh Abdullah bin Nasser",
-          "title": "bin Mohammed Al-Makhairbash"
+          "name": "Ali Al-Qazlan",
+          "image": "ali-kazlan"
         },
         {
-          "name": "Dr. Omar bin Saeed bin",
-          "title": "Mohammed Al-Mubti"
+          "name": "Talal Al-Suwail",
+          "image": "talal-suail"
         },
         {
-          "name": "Dr. Yusuf bin Saeed",
-          "title": "bin Hamdan Al-Ghamdi"
+          "name": "Mishaal Al-Mahlawi",
+          "image": "mashaal-mahalawy"
+        },
+        {
+          "name": "Othman Al-Hasim",
+          "image": "othman-alhasim"
         }
       ]
     }
@@ -258,7 +264,7 @@
       "part1": "Contributing to",
       "part2": "Achieving the Kingdom's Vision"
     },
-    "description": "Waqf Taybah for Good lending contributes to supporting the goals of Saudi Vision 2030",
+    "description": "Taiba Interest-Free Loan Waqf contributes to supporting the goals of Saudi Vision 2030",
     "through": "through:",
     "benefits": {
       "financial": "Empowering individuals and families financially to achieve self-sufficiency and reduce dependence on traditional support.",
