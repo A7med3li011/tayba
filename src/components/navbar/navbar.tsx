@@ -213,7 +213,7 @@ const Navbar = ({ variant = "transparent", className }: NavbarProps) => {
                   </AnimatePresence>
                 </div>
               ) : ( 
-                <Link
+                <Link 
                   href={ele.ref}
                   className={cn(
                     "inline-block transition-colors pb-1 text-sm xl:text-base",
